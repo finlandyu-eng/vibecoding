@@ -1,3 +1,4 @@
 # vibecoding
 
-<img width="922" height="672" alt="image" src="https://github.com/user-attachments/assets/d779c9e7-9c4e-4bc6-b8b4-e011d3c1fc7e" />
+<img width="1130" height="749" alt="image" src="https://github.com/user-attachments/assets/dd213eb2-1618-4068-9050-d6e5e2b1f25d" />
+
