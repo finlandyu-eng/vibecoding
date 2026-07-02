@@ -24,6 +24,50 @@ let validMoves = [];
 let turn = 'white';
 let gameOver = false;
 let history = [];
+let audioContext = null;
+
+function initAudio() {
+  if (!audioContext) {
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (audioContext.state === 'suspended') {
+    audioContext.resume();
+  }
+}
+
+function playSound(kind) {
+  initAudio();
+  const now = audioContext.currentTime;
+  const osc = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+  osc.connect(gain);
+  gain.connect(audioContext.destination);
+
+  let frequency = 440;
+  let duration = 0.12;
+  let type = 'triangle';
+
+  if (kind === 'move') {
+    frequency = 520;
+    duration = 0.1;
+    type = 'square';
+  } else if (kind === 'win') {
+    frequency = 880;
+    duration = 0.22;
+    type = 'sine';
+  } else if (kind === 'reset') {
+    frequency = 360;
+    duration = 0.14;
+    type = 'triangle';
+  }
+
+  osc.type = type;
+  osc.frequency.setValueAtTime(frequency, now);
+  gain.gain.setValueAtTime(0.08, now);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+  osc.start(now);
+  osc.stop(now + duration);
+}
 
 function resetGame() {
   board = initialBoard.map(row => row.slice());
@@ -44,8 +88,9 @@ function renderHistory() {
 function updateStatus() {
   const winner = getWinner();
   if (winner) {
-    status.textContent = `${winner} wins!`;
+    status.textContent = `🎉 ${winner} wins! Great job!`;
     gameOver = true;
+    playSound('win');
   } else {
     status.textContent = `${turn.charAt(0).toUpperCase() + turn.slice(1)} to move`;
   }
@@ -210,6 +255,7 @@ function movePiece(from, to) {
   turn = turn === 'white' ? 'black' : 'white';
   selected = null;
   validMoves = [];
+  playSound('move');
   updateStatus();
 }
 
@@ -250,7 +296,13 @@ boardCanvas.addEventListener('click', evt => {
   drawBoard();
 });
 
-resetBtn.addEventListener('click', resetGame);
-shuffleBtn.addEventListener('click', resetGame);
+resetBtn.addEventListener('click', () => {
+  resetGame();
+  playSound('reset');
+});
+shuffleBtn.addEventListener('click', () => {
+  resetGame();
+  playSound('reset');
+});
 
 resetGame();
