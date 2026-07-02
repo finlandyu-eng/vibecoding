@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Index — Interactive</title>
+    <style>
+      :root{
+        --bg:#0b0a12;
+        --panel: rgba(255,255,255,0.03);
+        --pink:#ff6fbf;
+        --soft:#ffd9ef;
+        --muted:#cfdff0;
+      }
+      html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#070416 0%,#0b0a12 100%);color:var(--muted)}
+      .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:48px}
+      .card{position:relative;z-index:2;max-width:980px;width:100%;border-radius:20px;padding:48px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));box-shadow:0 20px 50px rgba(2,4,12,0.6);overflow:hidden}
+      h1{margin:0 0 8px;font-size:clamp(2rem,4vw,3.6rem);color:var(--soft);letter-spacing:-0.02em}
+      p.lead{margin:0 0 22px;color:rgba(255,230,245,0.9)}
+      .controls{display:flex;gap:12px;flex-wrap:wrap}
+      .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;border:none;cursor:pointer;font-weight:700}
+      .btn--pink{background:linear-gradient(90deg,var(--pink),#ffc0e6);color:#111}
+      .btn--glass{background:rgba(255,255,255,0.04);color:var(--soft);border:1px solid rgba(255,255,255,0.06)}
+      .meta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+      .chip{padding:8px 12px;border-radius:999px;background:linear-gradient(90deg,rgba(255,111,191,0.08),rgba(255,210,236,0.03));color:var(--soft);font-weight:600}
+
+      /* typewriter */
+      .type{display:inline-block;color:var(--pink);font-weight:800}
+
+      /* reveal animation */
+      .reveal{opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease}
+      .reveal.is-visible{opacity:1;transform:none}
+
+      /* decorative pastel blobs */
+      .blob{position:absolute;border-radius:50%;filter:blur(36px);opacity:.9;pointer-events:none}
+      .blob.a{width:420px;height:420px;right:-140px;top:-120px;background:radial-gradient(circle at 30% 30%, rgba(255,111,191,0.2), transparent 20%), radial-gradient(circle at 80% 10%, rgba(255,210,236,0.12), transparent 22%);animation:float 14s ease-in-out infinite}
+      .blob.b{width:320px;height:320px;left:-120px;bottom:-140px;background:radial-gradient(circle at 20% 20%, rgba(137,215,255,0.12), transparent 18%);animation:float 12s ease-in-out infinite;animation-delay:2s}
+      @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-18px)}100%{transform:translateY(0)}}
+
+      /* canvas sits behind */
+      #particles{position:fixed;inset:0;z-index:0}
+
+      @media (max-width:720px){.card{padding:28px}.blob.a{display:none}.blob.b{display:none}}
+    </style>
+  </head>
+  <body>
+    <canvas id="particles"></canvas>
+    <div class="wrap">
+      <section class="card" aria-labelledby="hero-title">
+        <div class="blob a"></div>
+        <div class="blob b"></div>
+        <h1 id="hero-title">Hello — <span class="type" id="type"></span></h1>
+        <p class="lead reveal">A pretty, interactive index to explore your workspace — playful colors, soft motion, and quick links.</p>
+
+        <div class="controls reveal">
+          <a class="btn btn--pink" href="web1/index.html">Open web1</a>
+          <a class="btn btn--glass" href="web2/index.html">Open web2</a>
+          <button class="btn btn--glass" id="toggleTheme">Toggle Glow</button>
+        </div>
+
+        <div class="meta reveal" aria-hidden>
+          <div class="chip">Typewriter</div>
+          <div class="chip">Particles</div>
+          <div class="chip">Soft motion</div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // Simple particle canvas (soft floating orbs)
+      const canvas = document.getElementById('particles');
+      const ctx = canvas.getContext('2d');
+      let w=canvas.width=innerWidth, h=canvas.height=innerHeight;
+      window.addEventListener('resize',()=>{w=canvas.width=innerWidth;h=canvas.height=innerHeight})
+
+      const palette=["rgba(255,111,191,0.14)","rgba(255,210,236,0.08)","rgba(137,215,255,0.06)"]
+      const particles=[]
+      for(let i=0;i<40;i++){particles.push({x:Math.random()*w,y:Math.random()*h,r:8+Math.random()*36,dx:(Math.random()-0.5)*0.3,dy:(Math.random()-0.5)*0.3,color:palette[i%palette.length]})}
+      function draw(){ctx.clearRect(0,0,w,h);for(const p of particles){p.x+=p.dx;p.y+=p.dy;if(p.x<-100)p.x=w+100;if(p.x>w+100)p.x=-100;if(p.y<-100)p.y=h+100;if(p.y>h+100)p.y=-100;ctx.beginPath();ctx.fillStyle=p.color;ctx.ellipse(p.x,p.y,p.r,p.r,0,0,Math.PI*2);ctx.fill();}requestAnimationFrame(draw)}
+      requestAnimationFrame(draw)
+
+      // Typewriter
+      const el = document.getElementById('type');
+      const words = ['sweet vibes','welcome home','explore & create'];
+      let wi=0,ci=0,dir=1;
+      function type(){const word=words[wi];el.textContent=word.slice(0,ci);ci+=dir;if(ci>word.length){dir=-1;setTimeout(type,1200);return}if(ci<0){dir=1;wi=(wi+1)%words.length;ci=0}setTimeout(type,80)}
+      type();
+
+      // Reveal on scroll (for elements already visible, add class)
+      document.querySelectorAll('.reveal').forEach(el=>{if(el.getBoundingClientRect().top < innerHeight - 40) el.classList.add('is-visible')});
+      const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('is-visible')})},{threshold:0.12})
+      document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
+
+      // Toggle glow
+      let glow=false;document.getElementById('toggleTheme').addEventListener('click',()=>{
+        glow=!glow;document.body.style.background=glow? 'radial-gradient(circle at 10% 20%, rgba(255,111,191,0.06), transparent 10%), radial-gradient(circle at 90% 80%, rgba(137,215,255,0.035), transparent 20%), linear-gradient(180deg,#080319,#0b0a12)':'linear-gradient(180deg,#070416 0%,#0b0a12 100%)'
+      })
+    </script>
+  </body>
+</html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Project Index</title>
+    <style>
+      body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; padding: 2rem; }
+      a { color: #0366d6; }
+    </style>
+  </head>
+  <body>
+    <h1>Project Index</h1>
+    <p>Quick links to the subfolders in this workspace.</p>
+    <ul>
+      <li><a href="web1/">Open web1/ folder</a></li>
+      <li><a href="web1/index.html">Open web1 index</a></li>
+      <li><a href="web2/">Open web2/ folder</a></li>
+      <li><a href="web2/index.html">Open web2 index</a></li>
+    </ul>
+  </body>
+</html>
