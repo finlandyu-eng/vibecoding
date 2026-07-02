@@ -8,7 +8,7 @@ Description:
 ![Screenshot2]![alt text](image-1.png)
 
 Demo:
-https://...
+https://finlandyu-eng.github.io/vibecoding/Games/sat-vocab/index.html
 
 Video:
-https://...
+https://finlandyu-eng.github.io/vibecoding/Games/sat-vocab/index.html
