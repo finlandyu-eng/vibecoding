@@ -11,6 +11,19 @@
     .hero-photo{position:absolute;inset:0;left:50%;transform:translateX(-20%);width:150%;height:100%;background-image:url('https://source.unsplash.com/featured/1600x900/?pastel,portrait,flowers');background-size:cover;background-position:center;opacity:0.12;pointer-events:none;transition:transform .35s ease}
     .hero .hero-content{z-index:2}
     @media (max-width:620px){.hero-photo{display:none}}
+    /* decorative flowers */
+    .flower{position:absolute;pointer-events:none;z-index:1;transform-origin:center;filter:drop-shadow(0 8px 18px rgba(0,0,0,0.35));}
+    .flower.is-small{width:88px;height:88px;opacity:0.95}
+    .flower.is-medium{width:140px;height:140px;opacity:0.96}
+    .flower.is-large{width:220px;height:220px;opacity:0.98}
+    .flower.f1{left:6%;top:6%;animation:floatY 9s ease-in-out infinite, spin 18s linear infinite}
+    .flower.f2{right:6%;top:18%;animation:floatY 11s ease-in-out infinite, spinReverse 22s linear infinite}
+    .flower.f3{left:10%;bottom:8%;animation:floatY 13s ease-in-out infinite, spin 20s linear infinite}
+
+    @keyframes floatY{0%{transform:translateY(0)}50%{transform:translateY(-14px)}100%{transform:translateY(0)}}
+    @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+    @keyframes spinReverse{0%{transform:rotate(0deg)}100%{transform:rotate(-360deg)}}
+    @media (max-width:840px){.flower{display:none}}
   </style>
 </head>
 <body>
@@ -18,8 +31,53 @@
     <header class="hero">
       <div class="hero-content">
           <div class="hero-photo" id="heroPhoto"></div>
+          <!-- Decorative flowers (SVG) -->
+          <div class="flower is-small f1" aria-hidden>
+            <svg viewBox="0 0 120 120" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="g1" x1="0" x2="1">
+                  <stop offset="0" stop-color="#ffd1ec" />
+                  <stop offset="1" stop-color="#ff6fbf" />
+                </linearGradient>
+              </defs>
+              <g fill="url(#g1)" stroke="rgba(255,255,255,0.12)" stroke-width="1">
+                <circle cx="60" cy="60" r="10" fill="#fff6fb" opacity="0.95" />
+                <path d="M60 10 C70 28, 100 28, 96 54 C85 80, 60 70, 60 60 C60 70, 35 80, 24 54 C20 28, 50 28, 60 10 Z" opacity="0.95"/>
+              </g>
+            </svg>
+          </div>
+          <div class="flower is-medium f2" aria-hidden>
+            <svg viewBox="0 0 200 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="g2" x1="0" x2="1">
+                  <stop offset="0" stop-color="#fff0fb" />
+                  <stop offset="1" stop-color="#ffd1ec" />
+                </linearGradient>
+              </defs>
+              <g fill="url(#g2)" stroke="rgba(255,255,255,0.08)" stroke-width="1">
+                <circle cx="100" cy="100" r="12" fill="#fff" opacity="0.96" />
+                <g opacity="0.98">
+                  <path d="M100 18 C120 38,160 38,156 78 C144 120,100 110,100 100 C100 110,56 120,44 78 C40 38,80 38,100 18 Z"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="flower is-large f3" aria-hidden>
+            <svg viewBox="0 0 300 300" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="g3" x1="0" x2="1">
+                  <stop offset="0" stop-color="#ffe9f5" />
+                  <stop offset="1" stop-color="#ffd1ec" />
+                </linearGradient>
+              </defs>
+              <g fill="url(#g3)" stroke="rgba(255,255,255,0.06)" stroke-width="1">
+                <circle cx="150" cy="150" r="16" fill="#fff8fb" opacity="0.98" />
+                <path d="M150 22 C180 52,230 52,226 102 C210 155,150 142,150 130 C150 142,90 155,74 102 C70 52,120 52,150 22 Z" opacity="0.98"/>
+              </g>
+            </svg>
+          </div>
         <p class="eyebrow">Resume Website</p>
-        <h1>Flora Yu</h1>
+        <h1>Finland Yu</h1>
         <p class="hero-subtitle">Full-Stack Developer crafting modern, accessible web experiences.</p>
         <div class="contact-links">
           <a href="mailto:hello@vibecoding.dev">hello@vibecoding.dev</a>
