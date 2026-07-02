@@ -12,7 +12,7 @@ This is one of my favourite game. I love to play 24 points! I am very happy I ca
 ![alt text](image.png)
 
 Demo:
-https://...
+https://finlandyu-eng.github.io/vibecoding/Games/24points/index.html
 
 Video:
-https://...
+https://finlandyu-eng.github.io/vibecoding/Games/24points/index.html

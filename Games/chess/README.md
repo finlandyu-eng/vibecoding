@@ -11,6 +11,6 @@ This is my first game website. I designed this pink chess game to encourage girl
 
 Demo:
 https://finlandyu-eng.github.io/vibecoding/Games/chess/index.html
-
+github
 Video:
 https://finlandyu-eng.github.io/vibecoding/Games/chess/index.html
