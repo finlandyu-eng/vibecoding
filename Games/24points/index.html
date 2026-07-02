@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>24 Points Game</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Math Adventure</p>
+          <h1>24 Points</h1>
+          <p class="lead">
+            Pick two cards, choose an operation, and try to make the number 24.
+            It is a silly, colorful puzzle for kids and grown-ups alike.
+          </p>
+        </div>
+        <button id="newGameBtn" class="primary-btn" type="button">New Puzzle</button>
+      </header>
+
+      <main class="game-layout">
+        <section class="game-panel">
+          <div class="status-card">
+            <h2>Goal</h2>
+            <div class="status-row">
+              <label class="toggle-pill" for="timedModeToggle">
+                <input id="timedModeToggle" type="checkbox" checked />
+                <span>Timed game</span>
+              </label>
+              <div class="stat-pill">
+                <span>Timer</span>
+                <strong id="timerDisplay">60s</strong>
+              </div>
+              <div class="stat-pill">
+                <span>Score</span>
+                <strong id="scoreDisplay">0</strong>
+              </div>
+            </div>
+            <p id="statusText">Select two cards to begin your number adventure!</p>
+          </div>
+
+          <div id="cardBoard" class="card-board" aria-label="Game cards"></div>
+
+          <div class="controls-card">
+            <h2>Choose an operation</h2>
+            <div class="operator-row">
+              <button class="operator-btn" data-op="+" type="button">+</button>
+              <button class="operator-btn" data-op="-" type="button">−</button>
+              <button class="operator-btn" data-op="×" type="button">×</button>
+              <button class="operator-btn" data-op="÷" type="button">÷</button>
+            </div>
+            <button id="clearSelectionBtn" class="secondary-btn" type="button">Clear Selection</button>
+            <button id="skipPuzzleBtn" class="secondary-btn" type="button">Skip Puzzle</button>
+          </div>
+        </section>
+
+        <aside class="side-panel">
+          <div class="info-card">
+            <h2>How to play</h2>
+            <ul>
+              <li>Tap two cards.</li>
+              <li>Choose an operation.</li>
+              <li>Use the result to keep building toward 24.</li>
+            </ul>
+          </div>
+
+          <div id="nameModal" class="name-modal hidden" aria-hidden="true">
+            <div class="name-modal-card">
+              <p class="sparkle">✨</p>
+              <h2>Hello, superstar!</h2>
+              <p>What is your wonderful name?</p>
+              <input id="playerNameInput" type="text" maxlength="12" placeholder="Enter your name" />
+              <button id="nameSubmitBtn" class="primary-btn" type="button">Start Playing!</button>
+            </div>
+          </div>
+
+          <div id="fireworksOverlay" class="fireworks-overlay hidden" aria-hidden="true">
+            <div class="firework firework-1"></div>
+            <div class="firework firework-2"></div>
+            <div class="firework firework-3"></div>
+            <div class="firework firework-4"></div>
+            <div class="firework firework-5"></div>
+            <div class="firework firework-6"></div>
+          </div>
+
+          <div class="info-card">
+            <h2>Top Players</h2>
+            <ol id="leaderboardList" class="leaderboard-list"></ol>
+          </div>
+
+          <div class="info-card">
+            <h2>Fun tip</h2>
+            <p>Every puzzle is a fresh challenge, so keep trying and celebrate every clever idea.</p>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="./game.js"></script>
+  </body>
+</html>
