@@ -5,11 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Resume | VibeCoding</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* hero photo and subtle parallax */
+    .hero-content{position:relative;overflow:hidden}
+    .hero-photo{position:absolute;inset:0;left:50%;transform:translateX(-20%);width:150%;height:100%;background-image:url('https://source.unsplash.com/featured/1600x900/?pastel,portrait,flowers');background-size:cover;background-position:center;opacity:0.12;pointer-events:none;transition:transform .35s ease}
+    .hero .hero-content{z-index:2}
+    @media (max-width:620px){.hero-photo{display:none}}
+  </style>
 </head>
 <body>
   <div class="page-wrap">
     <header class="hero">
       <div class="hero-content">
+          <div class="hero-photo" id="heroPhoto"></div>
         <p class="eyebrow">Resume Website</p>
         <h1>Flora Yu</h1>
         <p class="hero-subtitle">Full-Stack Developer crafting modern, accessible web experiences.</p>
@@ -97,5 +105,17 @@
       </section>
     </main>
   </div>
+  <script>
+    // small parallax: move background slightly on mouse move
+    const hero = document.querySelector('.hero');
+    const photo = document.getElementById('heroPhoto');
+    hero.addEventListener('mousemove', (e)=>{
+      const rect = hero.getBoundingClientRect();
+      const dx = (e.clientX - rect.left) / rect.width - 0.5;
+      const dy = (e.clientY - rect.top) / rect.height - 0.5;
+      photo.style.transform = `translateX(calc(-20% + ${dx*6}%)) translateY(${dy*3}%)`;
+    });
+    hero.addEventListener('mouseleave', ()=>{ photo.style.transform = 'translateX(-20%) translateY(0)' });
+  </script>
 </body>
 </html>
