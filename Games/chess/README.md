@@ -3,15 +3,14 @@
 # Simple web
 
 Description:
-This is my first game website. I designed a pink chess game to encourage girls to play chess.
+This is my first game website. I designed this pink chess game to encourage girls to play chess and enjoy the summer time.
 
-![Screenshot](screenshot.png)
+
 ![alt text](image-1.png)
 
-![Screenshot2](screenshot2.png)
 
 Demo:
-https://...
+https://finlandyu-eng.github.io/vibecoding/Games/chess/index.html
 
 Video:
-https://...
+https://finlandyu-eng.github.io/vibecoding/Games/chess/index.html
