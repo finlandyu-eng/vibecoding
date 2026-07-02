@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokémon Battle</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Pokémon Adventure</p>
+        <h1>Starter Battle</h1>
+        <p class="lead">Pick a starter Pokémon and battle a wild challenger in a cute turn-based game.</p>
+      </div>
+      <button id="restartBtn">Restart</button>
+    </header>
+
+    <main>
+      <section class="battle-panel">
+        <div class="trainer-box">
+          <h2>Your Pokémon</h2>
+          <div class="status-card" id="playerCard">
+            <div class="poke-avatar" id="playerAvatar">?</div>
+            <div>
+              <p class="poke-name" id="playerName">Choose a starter</p>
+              <p class="poke-hp">HP: <span id="playerHp">0</span>/<span id="playerMaxHp">0</span></p>
+            </div>
+          </div>
+          <div class="moves" id="moveButtons"></div>
+        </div>
+
+        <div class="trainer-box">
+          <h2>Rival</h2>
+          <div class="status-card rival" id="enemyCard">
+            <div class="poke-avatar" id="enemyAvatar">?</div>
+            <div>
+              <p class="poke-name" id="enemyName">Waiting...</p>
+              <p class="poke-hp">HP: <span id="enemyHp">0</span>/<span id="enemyMaxHp">0</span></p>
+            </div>
+          </div>
+          <div class="starter-grid" id="starterOptions"></div>
+        </div>
+      </section>
+
+      <section class="log-panel">
+        <h2>Battle Log</h2>
+        <div id="battleLog" class="battle-log"></div>
+      </section>
+
+      <div id="gameStatus" class="game-status">Select a starter to begin.</div>
+    </main>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
