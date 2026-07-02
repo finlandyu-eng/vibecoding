@@ -44,7 +44,7 @@ function renderHistory() {
 function updateStatus() {
   const winner = getWinner();
   if (winner) {
-    status.textContent = `${winner.charAt(0).toUpperCase() + winner.slice(1)} wins!`;
+    status.textContent = `${winner} wins!`;
     gameOver = true;
   } else {
     status.textContent = `${turn.charAt(0).toUpperCase() + turn.slice(1)} to move`;
@@ -249,8 +249,6 @@ boardCanvas.addEventListener('click', evt => {
 });
 
 resetBtn.addEventListener('click', resetGame);
-shuffleBtn.addEventListener('click', () => {
-  resetGame();
-});
+shuffleBtn.addEventListener('click', resetGame);
 
 resetGame();
