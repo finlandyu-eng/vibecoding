@@ -73,6 +73,61 @@ button:hover {
   box-shadow: 0 18px 40px rgba(247, 210, 123, 0.2);
 }
 
+.difficulty-picker {
+  display: grid;
+  gap: 10px;
+}
+
+.difficulty-btn {
+  width: 100%;
+  border-radius: 16px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 239, 190, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: #f8f1e9;
+}
+
+.difficulty-btn.active {
+  background: rgba(247, 210, 123, 0.18);
+  border-color: #f7d27b;
+}
+
+.art-picker {
+  display: grid;
+  gap: 10px;
+}
+
+.art-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 239, 190, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: #f8f1e9;
+  text-align: left;
+}
+
+.art-option.active {
+  background: rgba(247, 210, 123, 0.18);
+  border-color: #f7d27b;
+}
+
+.art-option img {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.preview-card p {
+  margin-top: 12px;
+  color: #f7d27b;
+  font-weight: 700;
+}
+
 .puzzle-panel {
   display: grid;
   grid-template-columns: 1.3fr 0.9fr;
@@ -84,7 +139,6 @@ button:hover {
   max-width: 720px;
   aspect-ratio: 1 / 1;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   gap: 4px;
   background: #11172b;
   padding: 4px;
@@ -145,6 +199,28 @@ button:hover {
 
 #statusText {
   color: #f7d27b;
+}
+
+.win-banner {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(247, 210, 123, 0.2), rgba(255, 255, 255, 0.08));
+  border: 1px solid rgba(247, 210, 123, 0.4);
+}
+
+.win-banner.hidden {
+  display: none;
+}
+
+.win-banner h3 {
+  margin: 0 0 6px;
+  color: #fff2b5;
+}
+
+.win-banner p {
+  margin: 0 0 4px;
+  color: #fff8e0;
 }
 
 @media (max-width: 920px) {

@@ -1,22 +1,100 @@
-const puzzleSize = 4;
-const totalTiles = puzzleSize * puzzleSize;
 const puzzleShell = document.getElementById('puzzleShell');
 const shuffleBtn = document.getElementById('shuffleBtn');
 const moveCount = document.getElementById('moveCount');
+const scoreValue = document.getElementById('scoreValue');
 const statusText = document.getElementById('statusText');
+const artSelector = document.getElementById('artSelector');
+const previewImage = document.getElementById('previewImage');
+const previewTitle = document.getElementById('previewTitle');
+const difficultySelector = document.getElementById('difficultySelector');
+const winBanner = document.getElementById('winBanner');
+const winDetails = document.getElementById('winDetails');
 
-const imageUrl = 'https://upload.wikimedia.org/wikipedia/commons/5/57/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg';
+const artworks = [
+  {
+    id: 'starry-night',
+    title: 'Starry Night',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
+  },
+  {
+    id: 'water-lilies',
+    title: 'Water Lilies',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Claude_Monet_-_Water_Lilies_-_Google_Art_Project.jpg/800px-Claude_Monet_-_Water_Lilies_-_Google_Art_Project.jpg',
+  },
+  {
+    id: 'mona-lisa',
+    title: 'Mona Lisa',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg',
+  },
+  {
+    id: 'scream',
+    title: 'The Scream',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/The_Scream.jpg/800px-The_Scream.jpg',
+  },
+  {
+    id: 'last-supper',
+    title: 'The Last Supper',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/The_Last_Supper_-_Leonardo_da_Vinci_-_High_Resolution_32x16.jpg/800px-The_Last_Supper_-_Leonardo_da_Vinci_-_High_Resolution_32x16.jpg',
+  },
+  {
+    id: 'girl-with-pearl-earring',
+    title: 'Girl with a Pearl Earring',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Girl_with_a_Pearl_Earring.jpg/800px-Girl_with_a_Pearl_Earring.jpg',
+  },
+  {
+    id: 'impression-sunrise',
+    title: 'Impression, Sunrise',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Claude_Monet%2C_Impression%2C_soleil_levant.jpg/800px-Claude_Monet%2C_Impression%2C_soleil_levant.jpg',
+  },
+];
+
+const levelSettings = {
+  easy: { size: 2, label: 'Easy (2×2)' },
+  medium: { size: 3, label: 'Medium (3×3)' },
+  hard: { size: 4, label: 'Hard (4×4)' },
+};
+
+let puzzleSize = levelSettings.easy.size;
+let totalTiles = puzzleSize * puzzleSize;
 let tileOrder = [];
 let moves = 0;
+let currentArtwork = artworks[0];
+let currentLevel = 'easy';
+let bestScore = 0;
 
 function createTiles() {
   puzzleShell.innerHTML = '';
+  puzzleShell.style.gridTemplateColumns = `repeat(${puzzleSize}, 1fr)`;
   for (let index = 0; index < totalTiles; index++) {
     const tile = document.createElement('button');
     tile.className = 'tile';
     tile.dataset.index = index;
     tile.addEventListener('click', () => handleTileClick(index));
     puzzleShell.appendChild(tile);
+  }
+}
+
+function updateArtworkSelection() {
+  if (!artSelector) return;
+  Array.from(artSelector.children).forEach((button) => {
+    button.classList.toggle('active', button.dataset.art === currentArtwork.id);
+  });
+}
+
+function updateDifficultySelection() {
+  if (!difficultySelector) return;
+  Array.from(difficultySelector.children).forEach((button) => {
+    button.classList.toggle('active', button.dataset.level === currentLevel);
+  });
+}
+
+function updatePreview() {
+  if (previewImage) {
+    previewImage.src = currentArtwork.src;
+    previewImage.alt = currentArtwork.title;
+  }
+  if (previewTitle) {
+    previewTitle.textContent = currentArtwork.title;
   }
 }
 
@@ -33,7 +111,7 @@ function updateTiles() {
       const col = order % puzzleSize;
       const bgX = (col / (puzzleSize - 1)) * 100;
       const bgY = (row / (puzzleSize - 1)) * 100;
-      tile.style.backgroundImage = `url(${imageUrl})`;
+      tile.style.backgroundImage = `url(${currentArtwork.src})`;
       tile.style.backgroundPosition = `${bgX}% ${bgY}%`;
       tile.style.backgroundSize = `${puzzleSize * 100}% ${puzzleSize * 100}%`;
     }
@@ -65,15 +143,21 @@ function handleTileClick(index) {
   [tileOrder[index], tileOrder[emptyIndex]] = [tileOrder[emptyIndex], tileOrder[index]];
   moves += 1;
   moveCount.textContent = moves;
+  updateScore();
   updateTiles();
   if (isSolved()) {
+    const score = Math.max(100 - moves * 5, 20);
+    bestScore = Math.max(bestScore, score);
     updateStatus('Puzzle complete! Enjoy the masterpiece.');
+    showWinBanner(score);
   } else {
     updateStatus('Keep solving the puzzle!');
+    hideWinBanner();
   }
 }
 
 function shufflePuzzle() {
+  totalTiles = puzzleSize * puzzleSize;
   tileOrder = Array.from({ length: totalTiles }, (_, i) => i);
   for (let i = tileOrder.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -82,14 +166,65 @@ function shufflePuzzle() {
   if (isSolved()) shufflePuzzle();
   moves = 0;
   moveCount.textContent = moves;
+  updateScore();
+  createTiles();
   updateTiles();
-  updateStatus('Puzzle shuffled. Slide tiles to restore the painting.');
+  hideWinBanner();
+  updateStatus(`Puzzle shuffled at ${levelSettings[currentLevel].label}. Slide tiles to restore the painting.`);
 }
 
 function updateStatus(message) {
   statusText.textContent = message;
 }
 
+function updateScore() {
+  const score = Math.max(100 - moves * 5, 20);
+  scoreValue.textContent = score;
+}
+
+function showWinBanner(score) {
+  if (!winBanner || !winDetails) return;
+  winBanner.classList.remove('hidden');
+  winDetails.textContent = `You finished in ${moves} moves with a score of ${score}!`;
+}
+
+function hideWinBanner() {
+  if (!winBanner) return;
+  winBanner.classList.add('hidden');
+}
+
+function selectArtwork(artId) {
+  const chosenArtwork = artworks.find((artwork) => artwork.id === artId);
+  if (!chosenArtwork) return;
+  currentArtwork = chosenArtwork;
+  updateArtworkSelection();
+  updatePreview();
+  shufflePuzzle();
+}
+
+function selectDifficulty(level) {
+  if (!levelSettings[level]) return;
+  currentLevel = level;
+  puzzleSize = levelSettings[level].size;
+  updateDifficultySelection();
+  shufflePuzzle();
+}
+
 shuffleBtn.addEventListener('click', shufflePuzzle);
-createTiles();
+
+if (artSelector) {
+  Array.from(artSelector.children).forEach((button) => {
+    button.addEventListener('click', () => selectArtwork(button.dataset.art));
+  });
+}
+
+if (difficultySelector) {
+  Array.from(difficultySelector.children).forEach((button) => {
+    button.addEventListener('click', () => selectDifficulty(button.dataset.level));
+  });
+}
+
+updateArtworkSelection();
+updateDifficultySelection();
+updatePreview();
 shufflePuzzle();

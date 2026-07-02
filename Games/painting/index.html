@@ -11,8 +11,8 @@
     <header class="hero">
       <div>
         <p class="eyebrow">Art Puzzle</p>
-        <h1>Starry Night Puzzle</h1>
-        <p class="lead">Reconstruct Van Gogh's famous masterpiece by sliding tiles into place. Shuffle the board and solve the painting.</p>
+        <h1>Painting Puzzle</h1>
+        <p class="lead">Reconstruct famous masterpiece by sliding tiles into place. Shuffle the board and solve the painting. Have Fun!</p>
       </div>
       <button id="shuffleBtn">Shuffle Puzzle</button>
     </header>
@@ -27,13 +27,61 @@
             <p>Click any tile next to the empty space to slide it. Finish the puzzle to reveal the painting.</p>
           </div>
           <div class="info-card">
-            <h2>Progress</h2>
-            <p>Moves: <strong id="moveCount">0</strong></p>
-            <p>Status: <span id="statusText">Press shuffle to start.</span></p>
+            <h2>Difficulty</h2>
+            <div class="difficulty-picker" id="difficultySelector">
+              <button class="difficulty-btn active" type="button" data-level="easy">Easy (2×2)</button>
+              <button class="difficulty-btn" type="button" data-level="medium">Medium (3×3)</button>
+              <button class="difficulty-btn" type="button" data-level="hard">Hard (4×4)</button>
+            </div>
+          </div>
+          <div class="info-card">
+            <h2>Choose a painting</h2>
+            <div class="art-picker" id="artSelector">
+              <button class="art-option active" type="button" data-art="starry-night">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/220px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" alt="Starry Night" />
+                <span>Van Gogh</span>
+              </button>
+              <button class="art-option" type="button" data-art="water-lilies">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Claude_Monet_-_Water_Lilies_-_Google_Art_Project.jpg/220px-Claude_Monet_-_Water_Lilies_-_Google_Art_Project.jpg" alt="Water Lilies" />
+                <span>Monet</span>
+              </button>
+              <button class="art-option" type="button" data-art="mona-lisa">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/220px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg" alt="Mona Lisa" />
+                <span>Da Vinci</span>
+              </button>
+              <button class="art-option" type="button" data-art="scream">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/The_Scream.jpg/220px-The_Scream.jpg" alt="The Scream" />
+                <span>Edvard Munch</span>
+              </button>
+              <button class="art-option" type="button" data-art="last-supper">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/The_Last_Supper_-_Leonardo_da_Vinci_-_High_Resolution_32x16.jpg/220px-The_Last_Supper_-_Leonardo_da_Vinci_-_High_Resolution_32x16.jpg" alt="The Last Supper" />
+                <span>The Last Supper</span>
+              </button>
+              <button class="art-option" type="button" data-art="girl-with-pearl-earring">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Girl_with_a_Pearl_Earring.jpg/220px-Girl_with_a_Pearl_Earring.jpg" alt="Girl with a Pearl Earring" />
+                <span>Girl with a Pearl Earring</span>
+              </button>
+              <button class="art-option" type="button" data-art="impression-sunrise">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Claude_Monet%2C_Impression%2C_soleil_levant.jpg/220px-Claude_Monet%2C_Impression%2C_soleil_levant.jpg" alt="Impression, Sunrise" />
+                <span>Impression, Sunrise</span>
+              </button>
+            </div>
           </div>
           <div class="info-card preview-card">
             <h2>Artwork</h2>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" alt="Starry Night by Vincent van Gogh" />
+            <img id="previewImage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" alt="Starry Night" />
+            <p id="previewTitle">Starry Night</p>
+          </div>
+          <div class="info-card">
+            <h2>Progress</h2>
+            <p>Moves: <strong id="moveCount">0</strong></p>
+            <p>Score: <strong id="scoreValue">0</strong></p>
+            <p>Status: <span id="statusText">Press shuffle to start.</span></p>
+            <div id="winBanner" class="win-banner hidden">
+              <h3>🎉 Congratulations!</h3>
+              <p>You solved the painting puzzle!</p>
+              <p id="winDetails">Great job.</p>
+            </div>
           </div>
         </aside>
       </section>
