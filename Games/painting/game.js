@@ -10,41 +10,45 @@ const difficultySelector = document.getElementById('difficultySelector');
 const winBanner = document.getElementById('winBanner');
 const winDetails = document.getElementById('winDetails');
 
+function resolveAssetPath(path) {
+  return new URL(path, window.location.href).toString();
+}
+
 const artworks = [
   {
     id: 'starry-night',
     title: 'Starry Night',
-    src: 'artworks/starry-night-local.svg',
+    src: resolveAssetPath('./artworks/starry-night-local.svg'),
   },
   {
     id: 'water-lilies',
     title: 'Water Lilies',
-    src: 'artworks/water-lilies-local.svg',
+    src: resolveAssetPath('./artworks/water-lilies-local.svg'),
   },
   {
     id: 'mona-lisa',
     title: 'Mona Lisa',
-    src: 'artworks/mona-lisa-local.svg',
+    src: resolveAssetPath('./artworks/mona-lisa-local.svg'),
   },
   {
     id: 'scream',
     title: 'The Scream',
-    src: 'artworks/scream-local.svg',
+    src: resolveAssetPath('./artworks/scream-local.svg'),
   },
   {
     id: 'last-supper',
     title: 'The Last Supper',
-    src: 'artworks/last-supper-local.svg',
+    src: resolveAssetPath('./artworks/last-supper-local.svg'),
   },
   {
     id: 'girl-with-pearl-earring',
     title: 'Girl with a Pearl Earring',
-    src: 'artworks/girl-with-pearl-earring-local.svg',
+    src: resolveAssetPath('./artworks/girl-with-pearl-earring-local.svg'),
   },
   {
     id: 'impression-sunrise',
     title: 'Impression, Sunrise',
-    src: 'artworks/impression-sunrise-local.svg',
+    src: resolveAssetPath('./artworks/impression-sunrise-local.svg'),
   },
 ];
 
