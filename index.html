@@ -61,78 +61,7 @@
         </div>
       </header>
 
-      <section class="grid" aria-label="projects">
-        <article class="card">
-          <h3>web1</h3>
-          <p>Personal site with soft styling and animations. Click preview to open an inline view.</p>
-          <div class="actions">
-            <a class="btn btn--accent" href="web1/index.html" target="_self">Open web1</a>
-            <button class="btn btn--ghost" data-preview="web1/index.html">Preview</button>
-          </div>
-          <div class="thumbs" style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn btn--ghost" data-image="https://source.unsplash.com/featured/800x600/?pastel,pink,flowers">Flowers</button>
-            <button class="btn btn--ghost" data-image="https://source.unsplash.com/featured/800x600/?soft,bokeh,lights">Bokeh</button>
-            <button class="btn btn--ghost" data-image="https://source.unsplash.com/featured/800x600/?pastel,sky,landscape">Landscape</button>
-          </div>
-          <div class="preview"><iframe src="web1/index.html" title="web1 preview"></iframe></div>
-        </article>
-
-        <article class="card">
-          <h3>web2</h3>
-          <p>Alternative layout and styles. Preview it inline or open in full window.</p>
-          <div class="actions">
-            <a class="btn btn--accent" href="web2/index.html" target="_self">Open web2</a>
-            <button class="btn btn--ghost" data-preview="web2/index.html">Preview</button>
-          </div>
-          <div class="thumbs" style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn btn--ghost" data-image="https://source.unsplash.com/featured/800x600/?pastel,architecture">Architecture</button>
-            <button class="btn btn--ghost" data-image="https://source.unsplash.com/featured/800x600/?pastel,sea">Sea</button>
-            <button class="btn btn--ghost" data-image="https://source.unsplash.com/featured/800x600/?pastel,city">City</button>
-          </div>
-          <div class="preview"><iframe src="web2/index.html" title="web2 preview"></iframe></div>
-        </article>
-
-        <article class="card">
-          <h3>Pink Chess</h3>
-          <p>Simple canvas chess game with move history and cute pink styling.</p>
-          <div class="actions">
-            <a class="btn btn--accent" href="Games/chess/index.html" target="_self">Open game</a>
-            <button class="btn btn--ghost" data-preview="Games/chess/index.html">Preview</button>
-          </div>
-          <div class="thumbs" style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn btn--ghost" data-image="https://source.unsplash.com/featured/800x600/?pink,chess,board">Chess</button>
-            <button class="btn btn--ghost" data-image="https://source.unsplash.com/featured/800x600/?pink,flowers,game">Flowers</button>
-          </div>
-          <div class="preview"><iframe src="Games/chess/index.html" title="Pink Chess preview"></iframe></div>
-        </article>
-        <article class="card">
-          <h3>Pokémon Battle</h3>
-          <p>Choose a starter and battle a wild Pokémon in a turn-based mini-game.</p>
-          <div class="actions">
-            <a class="btn btn--accent" href="Games/pokemon/index.html" target="_self">Open game</a>
-            <button class="btn btn--ghost" data-preview="Games/pokemon/index.html">Preview</button>
-          </div>
-          <div class="thumbs" style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn btn--ghost" data-image="https://source.unsplash.com/featured/800x600/?pokemon,game,starter">Pokémon</button>
-            <button class="btn btn--ghost" data-image="https://source.unsplash.com/featured/800x600/?pokemon,battle,cute">Battle</button>
-          </div>
-          <div class="preview"><iframe src="Games/pokemon/index.html" title="Pokémon Battle preview"></iframe></div>
-        </article>
-
-        <article class="card">
-          <h3>Starry Night Puzzle</h3>
-          <p>An artistic sliding puzzle using Van Gogh’s Starry Night. Shuffle the tiles and restore the masterpiece.</p>
-          <div class="actions">
-            <a class="btn btn--accent" href="Games/painting/index.html" target="_self">Open game</a>
-            <button class="btn btn--ghost" data-preview="Games/painting/index.html">Preview</button>
-          </div>
-          <div class="thumbs" style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn btn--ghost" data-image="https://source.unsplash.com/featured/800x600/?van-gogh,art,painting">Van Gogh</button>
-            <button class="btn btn--ghost" data-image="https://source.unsplash.com/featured/800x600/?starry-night,art,puzzle">Starry Night</button>
-          </div>
-          <div class="preview"><iframe src="Games/painting/index.html" title="Starry Night Puzzle preview"></iframe></div>
-        </article>
-      </section>
+      <section class="grid" id="projectGrid" aria-label="projects"></section>
 
     </main>
 
@@ -145,46 +74,180 @@
     </div>
 
     <script>
-      // Preview modal logic
       const modal = document.getElementById('modal');
       const modalFrame = document.getElementById('modalFrame');
       const modalImage = document.getElementById('modalImage');
+      const projectGrid = document.getElementById('projectGrid');
 
-      // preview iframe buttons
-      document.querySelectorAll('[data-preview]').forEach(btn=>{
-        btn.addEventListener('click',()=>{
-          const url = btn.getAttribute('data-preview');
-          modalImage.style.display='none';
-          modalFrame.style.display='block';
-          modalFrame.src = url;
-          modal.classList.add('is-open');
-        })
-      });
+      const projects = [
+        {
+          title: 'web1',
+          description: 'Personal site with soft styling and animations. Click preview to open an inline view.',
+          path: 'web1/index.html',
+          openText: 'Open web1',
+          tags: ['pastel flowers', 'bokeh lights', 'landscape'],
+          imagePrefix: 'https://source.unsplash.com/featured/800x600/?pastel,pink,flowers'
+        },
+        {
+          title: 'web2',
+          description: 'Alternative layout and styles. Preview it inline or open in full window.',
+          path: 'web2/index.html',
+          openText: 'Open web2',
+          tags: ['architecture', 'sea', 'city'],
+          imagePrefix: 'https://source.unsplash.com/featured/800x600/?pastel,architecture'
+        },
+        {
+          title: 'Pink Chess',
+          description: 'Simple canvas chess game with move history and cute pink styling.',
+          path: 'Games/chess/index.html',
+          tags: ['pink chess', 'flowers'],
+          imagePrefix: 'https://source.unsplash.com/featured/800x600/?pink,chess,board'
+        },
+        {
+          title: 'Pokémon Battle',
+          description: 'Choose a starter and battle a wild Pokémon in a turn-based mini-game.',
+          path: 'Games/pokemon/index.html',
+          tags: ['pokemon battle', 'starter', 'cute'],
+          imagePrefix: 'https://source.unsplash.com/featured/800x600/?pokemon,game,starter'
+        },
+        {
+          title: 'Starry Night Puzzle',
+          description: 'An artistic sliding puzzle using Van Gogh’s Starry Night. Shuffle the tiles and restore the masterpiece.',
+          path: 'Games/painting/index.html',
+          tags: ['van gogh art', 'starry night', 'puzzle'],
+          imagePrefix: 'https://source.unsplash.com/featured/800x600/?van-gogh,art,painting'
+        },
+        {
+          title: '24 Points',
+          description: 'A kid-friendly math game: use 4 numbers and arithmetic to reach exactly 24.',
+          path: 'Games/24points/index.html',
+          tags: ['math', 'puzzle', 'numbers'],
+          imagePrefix: 'https://source.unsplash.com/featured/800x600/?math,game,puzzle'
+        }
+      ];
 
-      // image thumb buttons
-      document.querySelectorAll('[data-image]').forEach(btn=>{
-        btn.addEventListener('click',()=>{
-          const img = btn.getAttribute('data-image');
-          modalFrame.style.display='none';
-          modalImage.style.display='block';
-          modalImage.src = img + '&' + Date.now(); // cache-bust so Unsplash returns fresh image
-          modal.classList.add('is-open');
-        })
-      });
+      function createProjectCard(project) {
+        const card = document.createElement('article');
+        card.className = 'card';
 
-      document.getElementById('close').addEventListener('click',()=>{ modal.classList.remove('is-open'); modalFrame.src='about:blank'; modalImage.src='';});
-      modal.addEventListener('click',e=>{ if(e.target===modal){ modal.classList.remove('is-open'); modalFrame.src='about:blank'; modalImage.src=''; }});
+        const title = document.createElement('h3');
+        title.textContent = project.title;
+        card.appendChild(title);
 
-      // subtle floating animation for blobs
-      function float(el, range, dur){
-        let dir=1;
-        setInterval(()=>{ el.style.transform = `translateY(${dir*range}px)`; dir*=-1 }, dur);
+        const desc = document.createElement('p');
+        desc.textContent = project.description;
+        card.appendChild(desc);
+
+        const actions = document.createElement('div');
+        actions.className = 'actions';
+
+        const openLink = document.createElement('a');
+        openLink.className = 'btn btn--accent';
+        openLink.href = project.path;
+        openLink.target = '_self';
+        openLink.textContent = project.openText || (project.title.startsWith('web') ? `Open ${project.title}` : 'Open game');
+        actions.appendChild(openLink);
+
+        const previewBtn = document.createElement('button');
+        previewBtn.className = 'btn btn--ghost';
+        previewBtn.setAttribute('data-preview', project.path);
+        previewBtn.textContent = 'Preview';
+        actions.appendChild(previewBtn);
+
+        card.appendChild(actions);
+
+        if (project.tags && project.tags.length) {
+          const thumbs = document.createElement('div');
+          thumbs.className = 'thumbs';
+          thumbs.style.marginTop = '12px';
+          thumbs.style.display = 'flex';
+          thumbs.style.gap = '10px';
+          thumbs.style.flexWrap = 'wrap';
+
+          project.tags.forEach(tag => {
+            const thumbBtn = document.createElement('button');
+            thumbBtn.className = 'btn btn--ghost';
+            thumbBtn.setAttribute('data-image', `${project.imagePrefix},${tag}`);
+            thumbBtn.textContent = tag.charAt(0).toUpperCase() + tag.slice(1);
+            thumbs.appendChild(thumbBtn);
+          });
+
+          card.appendChild(thumbs);
+        }
+
+        const preview = document.createElement('div');
+        preview.className = 'preview';
+
+        const iframe = document.createElement('iframe');
+        iframe.src = project.path;
+        iframe.title = `${project.title} preview`;
+        preview.appendChild(iframe);
+        card.appendChild(preview);
+
+        return card;
       }
+
+      function buildProjectGrid() {
+        projectGrid.innerHTML = '';
+        projects.forEach(project => projectGrid.appendChild(createProjectCard(project)));
+        attachPreviewHandlers();
+      }
+
+      function attachPreviewHandlers() {
+        document.querySelectorAll('[data-preview]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const url = btn.getAttribute('data-preview');
+            modalImage.style.display = 'none';
+            modalFrame.style.display = 'block';
+            modalFrame.src = url;
+            modal.classList.add('is-open');
+          });
+        });
+
+        document.querySelectorAll('[data-image]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const img = btn.getAttribute('data-image');
+            modalFrame.style.display = 'none';
+            modalImage.style.display = 'block';
+            modalImage.src = img + '&' + Date.now();
+            modal.classList.add('is-open');
+          });
+        });
+      }
+
+      document.getElementById('close').addEventListener('click', () => {
+        modal.classList.remove('is-open');
+        modalFrame.src = 'about:blank';
+        modalImage.src = '';
+      });
+
+      modal.addEventListener('click', e => {
+        if (e.target === modal) {
+          modal.classList.remove('is-open');
+          modalFrame.src = 'about:blank';
+          modalImage.src = '';
+        }
+      });
+
+      function float(el, range, dur) {
+        let dir = 1;
+        setInterval(() => {
+          el.style.transform = `translateY(${dir * range}px)`;
+          dir *= -1;
+        }, dur);
+      }
+
       float(document.querySelector('.blob.a'), 18, 7000);
       float(document.querySelector('.blob.b'), 12, 9000);
 
-      // keyboard escape to close modal
-      document.addEventListener('keydown',e=>{ if(e.key==='Escape') { modal.classList.remove('is-open'); modalFrame.src='about:blank' }});
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+          modal.classList.remove('is-open');
+          modalFrame.src = 'about:blank';
+        }
+      });
+
+      buildProjectGrid();
     </script>
   </body>
 </html>
