@@ -18,9 +18,9 @@ html, body {
 
 body {
   background: radial-gradient(circle at top, rgba(81, 191, 255, 0.12), transparent 22%),
-    radial-gradient(circle at 80% 10%, rgba(173, 115, 255, 0.12), transparent 18%),
+    radial-gradient(circle at 80% 10%, rgba(170, 123, 235, 0.12), transparent 18%),
     linear-gradient(180deg, #071019 0%, #061117 100%);
-  color: #e7edf4;
+  color: #0a4486;
 }
 
 img {
@@ -55,7 +55,7 @@ a:hover {
 }
 
 .eyebrow {
-  color: #6cc5ff;
+  color: #0791ec;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-size: 0.8rem;
