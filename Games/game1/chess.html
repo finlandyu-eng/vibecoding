@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Canvas Chess</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at top left, #ffd7f3 0%, transparent 35%),
+                  radial-gradient(circle at bottom right, #f7c4e6 0%, transparent 30%),
+                  #fdf2fb;
+      font-family: Inter, system-ui, Arial, sans-serif;
+      color: #3f1c3d;
+    }
+    .wrapper {
+      width: min(720px, calc(100vw - 32px));
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(255, 153, 200, 0.35);
+      border-radius: 24px;
+      box-shadow: 0 32px 80px rgba(129, 50, 101, 0.12);
+      padding: 24px;
+      backdrop-filter: blur(10px);
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: #ad1f70;
+      text-align: center;
+    }
+    p {
+      margin: 8px 0 16px;
+      color: #5d2e58;
+      text-align: center;
+      line-height: 1.5;
+    }
+    #status {
+      text-align: center;
+      margin-top: 14px;
+      font-weight: 600;
+      color: #7d3c6b;
+    }
+    canvas {
+      width: 100%;
+      max-width: 720px;
+      display: block;
+      margin: 0 auto;
+      border-radius: 18px;
+      box-shadow: 0 20px 48px rgba(129, 50, 101, 0.2);
+      cursor: pointer;
+    }
+    .legend {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+      text-align: center;
+    }
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      background: rgba(255, 194, 222, 0.35);
+      color: #5d2e58;
+      font-size: 0.95rem;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      margin: 16px 0 8px;
+    }
+    .button {
+      appearance: none;
+      border: 1px solid rgba(255, 111, 191, 0.55);
+      background: linear-gradient(135deg, #ffb5db 0%, #ff7fc2 100%);
+      color: #3f133d;
+      border-radius: 999px;
+      padding: 12px 22px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 14px 30px rgba(229, 100, 172, 0.22);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 34px rgba(229, 100, 172, 0.28);
+    }
+    .history-panel {
+      margin: 12px auto 0;
+      max-width: 640px;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(255, 168, 206, 0.45);
+      border-radius: 18px;
+      padding: 16px 18px;
+    }
+    .history-title {
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #7d3c6b;
+    }
+    #moveHistory {
+      margin: 0;
+      padding-left: 20px;
+      color: #552a51;
+      line-height: 1.6;
+    }
+    #moveHistory li {
+      margin-bottom: 6px;
+      list-style-type: decimal;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Canvas Chess</h1>
+    <p>Click a piece to select it, then click a destination square. Legal moves are highlighted automatically.</p>
+    <canvas id="chessboard" width="720" height="720" aria-label="Chess board"></canvas>
+    <div class="controls">
+      <button id="resetBtn" class="button">Reset game</button>
+    </div>
+    <div id="status">White to move</div>
+    <div class="history-panel">
+      <div class="history-title">Move history</div>
+      <ol id="moveHistory"></ol>
+    </div>
+    <div class="legend">
+      <span>White pieces: uppercase</span>
+      <span>Black pieces: lowercase</span>
+    </div>
+  </div>
+  <script>
+    const canvas = document.getElementById('chessboard');
+    const ctx = canvas.getContext('2d');
+    const boardSize = 8;
+    const tileSize = canvas.width / boardSize;
+    const status = document.getElementById('status');
+
+    const initialBoard = [
+      ['r','n','b','q','k','b','n','r'],
+      ['p','p','p','p','p','p','p','p'],
+      ['','.','','','','','',''],
+      ['','.','','','','','',''],
+      ['','.','','','','','',''],
+      ['','.','','','','','',''],
+      ['P','P','P','P','P','P','P','P'],
+      ['R','N','B','Q','K','B','N','R']
+    ];
+
+    let board = initialBoard.map(row => row.slice());
+    let selected = null;
+    let validMoves = [];
+    let turn = 'white';
+    let gameOver = false;
+    let history = [];
+    const resetBtn = document.getElementById('resetBtn');
+    const historyList = document.getElementById('moveHistory');
+
+    function drawBoard() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let row = 0; row < boardSize; row++) {
+        for (let col = 0; col < boardSize; col++) {
+          const x = col * tileSize;
+          const y = row * tileSize;
+          const isLight = (row + col) % 2 === 0;
+          ctx.fillStyle = isLight ? '#ffe3f2' : '#f7bad4';
+          ctx.fillRect(x, y, tileSize, tileSize);
+          if (selected && selected.row === row && selected.col === col) {
+            ctx.fillStyle = 'rgba(255, 111, 191, 0.4)';
+            ctx.fillRect(x, y, tileSize, tileSize);
+          }
+          if (validMoves.some(m => m.row === row && m.col === col)) {
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+            ctx.beginPath();
+            ctx.arc(x + tileSize/2, y + tileSize/2, tileSize/8, 0, Math.PI*2);
+            ctx.fill();
+          }
+          const piece = board[row][col];
+          if (piece) drawPiece(piece, x, y);
+        }
+      }
+      drawCoords();
+    }
+
+    function drawCoords() {
+      ctx.fillStyle = 'rgba(74, 18, 52, 0.8)';
+      ctx.font = '18px Inter, system-ui, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      const letters = ['a','b','c','d','e','f','g','h'];
+      for (let i=0;i<8;i++) {
+        ctx.fillText(letters[i], (i + 0.5) * tileSize, canvas.height - 12);
+        ctx.fillText(8 - i, 12, (i + 0.5) * tileSize);
+      }
+    }
+
+    function drawPiece(piece, x, y) {
+      const isWhite = piece === piece.toUpperCase();
+      ctx.fillStyle = isWhite ? '#4d003a' : '#28001b';
+      ctx.font = 'bold 48px Inter, system-ui, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(getPieceSymbol(piece), x + tileSize/2, y + tileSize/2 + 4);
+    }
+
+    function getPieceSymbol(piece) {
+      const mapping = {
+        'p': '♟', 'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚',
+        'P': '♙', 'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔'
+      };
+      return mapping[piece] || '';
+    }
+
+    function insideBoard(row, col) {
+      return row >= 0 && row < 8 && col >= 0 && col < 8;
+    }
+
+    function getTeam(piece) {
+      if (!piece) return null;
+      return piece === piece.toUpperCase() ? 'white' : 'black';
+    }
+
+    function getMoves(row, col) {
+      const piece = board[row][col];
+      if (!piece) return [];
+      const team = getTeam(piece);
+      if (team !== turn) return [];
+      const moves = [];
+      const directions = {
+        'p': [[1,0]], 'P': [[-1,0]],
+      };
+      const unit = piece.toLowerCase();
+      if (unit === 'p') {
+        const forward = piece === 'P' ? -1 : 1;
+        const startRow = piece === 'P' ? 6 : 1;
+        const nextRow = row + forward;
+        if (insideBoard(nextRow, col) && !board[nextRow][col]) {
+          moves.push({row: nextRow, col});
+          if (row === startRow && !board[row + forward*2][col]) {
+            moves.push({row: row + forward*2, col});
+          }
+        }
+        for (const dc of [-1,1]) {
+          const nr = row + forward;
+          const nc = col + dc;
+          if (insideBoard(nr, nc) && board[nr][nc] && getTeam(board[nr][nc]) !== team) {
+            moves.push({row: nr, col: nc});
+          }
+        }
+        return moves;
+      }
+      if (unit === 'n') {
+        const deltas = [[2,1],[2,-1],[-2,1],[-2,-1],[1,2],[1,-2],[-1,2],[-1,-2]];
+        for (const [dr,dc] of deltas) {
+          const nr = row + dr, nc = col + dc;
+          if (!insideBoard(nr,nc)) continue;
+          if (!board[nr][nc] || getTeam(board[nr][nc]) !== team) moves.push({row:nr,col:nc});
+        }
+        return moves;
+      }
+      if (unit === 'b' || unit === 'r' || unit === 'q') {
+        const rays = [];
+        if (unit === 'b' || unit === 'q') {
+          rays.push([1,1],[1,-1],[-1,1],[-1,-1]);
+        }
+        if (unit === 'r' || unit === 'q') {
+          rays.push([1,0],[-1,0],[0,1],[0,-1]);
+        }
+        for (const [dr,dc] of rays) {
+          let nr=row+dr, nc=col+dc;
+          while(insideBoard(nr,nc)){
+            if (!board[nr][nc]) {
+              moves.push({row:nr,col:nc});
+            } else {
+              if (getTeam(board[nr][nc]) !== team) moves.push({row:nr,col:nc});
+              break;
+            }
+            nr += dr; nc += dc;
+          }
+        }
+        return moves;
+      }
+      if (unit === 'k') {
+        for (let dr=-1;dr<=1;dr++) for (let dc=-1;dc<=1;dc++) {
+          if (dr===0 && dc===0) continue;
+          const nr=row+dr, nc=col+dc;
+          if (!insideBoard(nr,nc)) continue;
+          if (!board[nr][nc] || getTeam(board[nr][nc])!==team) moves.push({row:nr,col:nc});
+        }
+        return moves;
+      }
+      return [];
+    }
+
+    function positionFromEvent(evt) {
+      const rect = canvas.getBoundingClientRect();
+      const x = evt.clientX - rect.left;
+      const y = evt.clientY - rect.top;
+      const col = Math.floor(x / tileSize);
+      const row = Math.floor(y / tileSize);
+      return {row, col};
+    }
+
+    function squareName(row, col) {
+      const files = 'abcdefgh';
+      return `${files[col]}${8 - row}`;
+    }
+
+    function movePiece(from, to) {
+      const piece = board[from.row][from.col];
+      board[to.row][to.col] = piece;
+      board[from.row][from.col] = '';
+      if ((piece === 'P' && to.row === 0) || (piece === 'p' && to.row === 7)) {
+        board[to.row][to.col] = piece === 'P' ? 'Q' : 'q';
+      }
+      history.push(`${squareName(from.row, from.col)} → ${squareName(to.row, to.col)}`);
+      renderHistory();
+      turn = turn === 'white' ? 'black' : 'white';
+      selected = null;
+      validMoves = [];
+      updateStatus();
+    }
+
+    function updateStatus() {
+      const winner = getWinner();
+      if (winner) {
+        status.textContent = winner === 'draw' ? 'Draw!' : `${winner.charAt(0).toUpperCase() + winner.slice(1)} wins!`;
+        gameOver = true;
+      } else {
+        status.textContent = `${turn.charAt(0).toUpperCase() + turn.slice(1)} to move`;
+      }
+    }
+
+    function getWinner() {
+      let whiteKing=false, blackKing=false;
+      for (let row=0; row<8; row++) for (let col=0; col<8; col++) {
+        if (board[row][col] === 'K') whiteKing = true;
+        if (board[row][col] === 'k') blackKing = true;
+      }
+      if (!whiteKing) return 'black';
+      if (!blackKing) return 'white';
+      return null;
+    }
+
+    canvas.addEventListener('click', evt => {
+      if (gameOver) return;
+      const pos = positionFromEvent(evt);
+      if (!insideBoard(pos.row, pos.col)) return;
+      const clickedPiece = board[pos.row][pos.col];
+      if (selected) {
+        const target = validMoves.find(m => m.row === pos.row && m.col === pos.col);
+        if (target) {
+          movePiece(selected, target);
+          drawBoard();
+          return;
+        }
+      }
+      if (clickedPiece && getTeam(clickedPiece) === turn) {
+        selected = pos;
+        validMoves = getMoves(pos.row, pos.col);
+      } else {
+        selected = null;
+        validMoves = [];
+      }
+      drawBoard();
+    });
+
+    resetBtn.addEventListener('click', resetGame);
+
+    function renderHistory() {
+      historyList.innerHTML = history.map(entry => `<li>${entry}</li>`).join('');
+    }
+
+    function resetGame() {
+      board = initialBoard.map(row => row.slice());
+      selected = null;
+      validMoves = [];
+      turn = 'white';
+      gameOver = false;
+      history = [];
+      updateStatus();
+      renderHistory();
+      drawBoard();
+    }
+
+    drawBoard();
+    renderHistory();
+  </script>
+</body>
+</html>
