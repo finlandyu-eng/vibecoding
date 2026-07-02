@@ -13,8 +13,27 @@
         <p class="eyebrow">Word Quest</p>
         <h1>SAT Vocabulary Adventure</h1>
         <p class="lead">Learn high-frequency SAT words through fun challenges, examples, and playful animations.</p>
+        <div class="start-panel">
+          <label for="playerName">Player name</label>
+          <input id="playerName" type="text" placeholder="Enter your name" />
+          <button id="startBtn" class="secondary-btn" type="button">Start Adventure</button>
+        </div>
       </div>
-      <button id="nextWordBtn" class="primary-btn">New Word</button>
+      <div class="hero-actions">
+        <div>
+          <div class="level-buttons" role="group" aria-label="Choose difficulty">
+            <button class="level-btn active" type="button" data-level="Easy">Easy</button>
+            <button class="level-btn" type="button" data-level="Medium">Medium</button>
+            <button class="level-btn" type="button" data-level="Hard">Hard</button>
+          </div>
+          <div class="mode-controls" role="group" aria-label="Choose game mode">
+            <button class="mode-btn active" type="button" data-mode="timed">Timed</button>
+            <button class="mode-btn" type="button" data-mode="untimed">Untimed</button>
+          </div>
+          <div class="timer-pill">Time left: <strong id="timerDisplay">15</strong>s</div>
+        </div>
+        <button id="nextWordBtn" class="primary-btn" disabled>Next Word</button>
+      </div>
     </header>
 
     <main class="content-grid">
@@ -22,6 +41,9 @@
         <div class="word-header">
           <span class="word-level">Level: <strong id="levelDisplay">Easy</strong></span>
           <span class="score-pill">Score: <strong id="scoreDisplay">0</strong></span>
+        </div>
+        <div class="greeting-card">
+          <p id="playerGreeting">Enter your name and press Start to begin the challenge.</p>
         </div>
         <div class="word-block">
           <div class="big-word" id="wordDisplay">radiant</div>
@@ -42,9 +64,23 @@
 
       <section class="card progress-card">
         <h2>Progress</h2>
+        <p>Mode: <strong id="modeLabel">Timed</strong></p>
         <p>Correct: <strong id="correctCount">0</strong></p>
         <p>Wrong: <strong id="wrongCount">0</strong></p>
+        <p>Mistakes: <strong id="mistakeCount">0</strong></p>
+        <p>Streak: <strong id="streakCount">0</strong> correct</p>
+        <div class="progress-actions">
+          <button id="reviewBtn" class="secondary-btn" type="button" disabled>Review Mistakes</button>
+          <button id="clearMistakesBtn" class="secondary-btn" type="button" disabled>Clear Mistakes</button>
+        </div>
+        <p id="comboText" class="combo-text">Build a streak to earn bonus points!</p>
         <p id="statusText">Choose the best meaning to win points.</p>
+      </section>
+
+      <section class="card leaderboard-card">
+        <h2>Leaderboard</h2>
+        <p class="leaderboard-summary">Top players by score. Keep playing to top the list!</p>
+        <ol class="leaderboard-list" id="leaderboardList"></ol>
       </section>
     </main>
 
