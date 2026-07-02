@@ -14,37 +14,37 @@ const artworks = [
   {
     id: 'starry-night',
     title: 'Starry Night',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/800px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg',
+    src: 'artworks/starry-night-local.svg',
   },
   {
     id: 'water-lilies',
     title: 'Water Lilies',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Claude_Monet_-_Water_Lilies_-_Google_Art_Project.jpg/800px-Claude_Monet_-_Water_Lilies_-_Google_Art_Project.jpg',
+    src: 'artworks/water-lilies-local.svg',
   },
   {
     id: 'mona-lisa',
     title: 'Mona Lisa',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg',
+    src: 'artworks/mona-lisa-local.svg',
   },
   {
     id: 'scream',
     title: 'The Scream',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/The_Scream.jpg/800px-The_Scream.jpg',
+    src: 'artworks/scream-local.svg',
   },
   {
     id: 'last-supper',
     title: 'The Last Supper',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/The_Last_Supper_-_Leonardo_da_Vinci_-_High_Resolution_32x16.jpg/800px-The_Last_Supper_-_Leonardo_da_Vinci_-_High_Resolution_32x16.jpg',
+    src: 'artworks/last-supper-local.svg',
   },
   {
     id: 'girl-with-pearl-earring',
     title: 'Girl with a Pearl Earring',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Girl_with_a_Pearl_Earring.jpg/800px-Girl_with_a_Pearl_Earring.jpg',
+    src: 'artworks/girl-with-pearl-earring-local.svg',
   },
   {
     id: 'impression-sunrise',
     title: 'Impression, Sunrise',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Claude_Monet%2C_Impression%2C_soleil_levant.jpg/800px-Claude_Monet%2C_Impression%2C_soleil_levant.jpg',
+    src: 'artworks/impression-sunrise-local.svg',
   },
 ];
 
@@ -148,7 +148,7 @@ function handleTileClick(index) {
   if (isSolved()) {
     const score = Math.max(100 - moves * 5, 20);
     bestScore = Math.max(bestScore, score);
-    updateStatus('Puzzle complete! Enjoy the masterpiece.');
+    updateStatus('Puzzle complete! Enjoy the public-domain masterpiece.');
     showWinBanner(score);
   } else {
     updateStatus('Keep solving the puzzle!');
@@ -170,7 +170,7 @@ function shufflePuzzle() {
   createTiles();
   updateTiles();
   hideWinBanner();
-  updateStatus(`Puzzle shuffled at ${levelSettings[currentLevel].label}. Slide tiles to restore the painting.`);
+  updateStatus(`Puzzle shuffled at ${levelSettings[currentLevel].label}. Slide tiles to restore the public-domain painting.`);
 }
 
 function updateStatus(message) {
