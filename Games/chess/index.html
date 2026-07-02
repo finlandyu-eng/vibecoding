@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pink Chess</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Cute Chess</p>
+        <h1>Pink Chess</h1>
+        <p class="lead">A simple canvas chess game built with JavaScript. Click a piece, then click a square to move.</p>
+      </div>
+      <div class="hero-actions">
+        <button id="resetBtn">New Game</button>
+        <button id="shuffleBtn">Reset Board</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="board-shell">
+        <canvas id="board" width="720" height="720" aria-label="Chess board"></canvas>
+      </section>
+
+      <section class="info-grid">
+        <div class="info-card">
+          <h2>How to play</h2>
+          <p>Click a piece to select it, then click a highlighted square to move. All pawn promotions become queens.</p>
+        </div>
+        <div class="info-card history-card">
+          <h2>Move History</h2>
+          <ol id="history"></ol>
+        </div>
+      </section>
+
+      <div id="status" class="status">White to move</div>
+    </main>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
