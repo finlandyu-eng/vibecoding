@@ -184,8 +184,10 @@ function getMoves(row, col) {
 
 function positionFromEvent(evt) {
   const rect = boardCanvas.getBoundingClientRect();
-  const x = evt.clientX - rect.left;
-  const y = evt.clientY - rect.top;
+  const scaleX = boardCanvas.width / rect.width;
+  const scaleY = boardCanvas.height / rect.height;
+  const x = (evt.clientX - rect.left) * scaleX;
+  const y = (evt.clientY - rect.top) * scaleY;
   const col = Math.floor(x / tileSize);
   const row = Math.floor(y / tileSize);
   return {row, col};
