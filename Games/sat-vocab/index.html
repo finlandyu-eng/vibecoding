@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAT Vocabulary Adventure</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Word Quest</p>
+        <h1>SAT Vocabulary Adventure</h1>
+        <p class="lead">Learn high-frequency SAT words through fun challenges, examples, and playful animations.</p>
+      </div>
+      <button id="nextWordBtn" class="primary-btn">New Word</button>
+    </header>
+
+    <main class="content-grid">
+      <section class="card word-card">
+        <div class="word-header">
+          <span class="word-level">Level: <strong id="levelDisplay">Easy</strong></span>
+          <span class="score-pill">Score: <strong id="scoreDisplay">0</strong></span>
+        </div>
+        <div class="word-block">
+          <div class="big-word" id="wordDisplay">radiant</div>
+          <div class="word-meaning" id="meaningDisplay">bright and shining</div>
+        </div>
+        <div class="sentence-card" id="exampleDisplay">The morning sun made the garden look radiant.</div>
+      </section>
+
+      <section class="card quiz-card">
+        <h2>Choose the best meaning</h2>
+        <div class="options-grid" id="optionsGrid"></div>
+      </section>
+
+      <section class="card hint-card">
+        <h2>Word Fun</h2>
+        <p id="hintDisplay">The word looks like a warm light. Tap an answer to see if you are right!</p>
+      </section>
+
+      <section class="card progress-card">
+        <h2>Progress</h2>
+        <p>Correct: <strong id="correctCount">0</strong></p>
+        <p>Wrong: <strong id="wrongCount">0</strong></p>
+        <p id="statusText">Choose the best meaning to win points.</p>
+      </section>
+    </main>
+
+    <div class="firefly-layer" aria-hidden="true">
+      <span class="firefly"></span>
+      <span class="firefly"></span>
+      <span class="firefly"></span>
+      <span class="firefly"></span>
+      <span class="firefly"></span>
+    </div>
+
+    <script src="./game.js"></script>
+  </div>
+</body>
+</html>
