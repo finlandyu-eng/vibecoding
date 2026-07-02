@@ -17,7 +17,12 @@ const words = [
     example: 'The morning sun made the garden look radiant.',
     hint: 'Think of sparkling light and a happy glow.',
     level: 'Easy',
-    choices: ['sad', 'bright', 'heavy', 'dull']
+    choices: [
+      'bright, shining, or joyful',
+      'dark and quiet',
+      'slow and heavy',
+      'small and weak'
+    ]
   },
   {
     word: 'vivid',
@@ -25,7 +30,12 @@ const words = [
     example: 'She remembered the vivid colors of the festival.',
     hint: 'Imagine a picture with strong, glowing colors.',
     level: 'Easy',
-    choices: ['faded', 'sharp', 'boring', 'crowded']
+    choices: [
+      'clear, bright, and full of life',
+      'faded and bland',
+      'small and hidden',
+      'quiet and boring'
+    ]
   },
   {
     word: 'eager',
@@ -33,7 +43,12 @@ const words = [
     example: 'Alex was eager to start the new adventure.',
     hint: 'How does a child feel before a fun party?',
     level: 'Easy',
-    choices: ['tired', 'bored', 'excited', 'slow']
+    choices: [
+      'excited and ready to begin',
+      'tired and sleepy',
+      'angry and upset',
+      'lazy and slow'
+    ]
   },
   {
     word: 'swift',
@@ -41,7 +56,12 @@ const words = [
     example: 'The rabbit made a swift escape into the forest.',
     hint: 'Like a superhero running very fast.',
     level: 'Medium',
-    choices: ['slow', 'fast', 'heavy', 'simple']
+    choices: [
+      'very quick or fast',
+      'slow and steady',
+      'strong and heavy',
+      'quiet and gentle'
+    ]
   },
   {
     word: 'brave',
@@ -49,7 +69,12 @@ const words = [
     example: 'The brave knight helped the village.',
     hint: 'Think of someone who is not scared.',
     level: 'Medium',
-    choices: ['quiet', 'scared', 'strong', 'small']
+    choices: [
+      'showing courage and not fear',
+      'feeling shy and quiet',
+      'being sad and weak',
+      'not wanting to try'
+    ]
   },
   {
     word: 'curious',
@@ -57,7 +82,12 @@ const words = [
     example: 'The curious kitten explored every corner.',
     hint: 'What do you feel when you ask lots of questions?',
     level: 'Medium',
-    choices: ['sleepy', 'curious', 'hungry', 'lonely']
+    choices: [
+      'wanting to learn or know more',
+      'feeling sleepy and calm',
+      'being angry and loud',
+      'wanting to stay alone'
+    ]
   },
   {
     word: 'sparkle',
@@ -65,7 +95,12 @@ const words = [
     example: 'The stars sparkle on a clear night.',
     hint: 'Like tiny lights glowing in the dark.',
     level: 'Hard',
-    choices: ['sleep', 'glow', 'hide', 'drop']
+    choices: [
+      'shine brightly with small flashes of light',
+      'sleep quietly without moving',
+      'hide in a dark place',
+      'drop down quickly'
+    ]
   },
   {
     word: 'celebrate',
@@ -73,7 +108,12 @@ const words = [
     example: 'They celebrate birthdays with cake and songs.',
     hint: 'Think about a party with friends.',
     level: 'Hard',
-    choices: ['give up', 'forget', 'chant', 'celebrate']
+    choices: [
+      'to enjoy a special event with happiness',
+      'to forget about something',
+      'to say something loudly',
+      'to stop trying'
+    ]
   },
   {
     word: 'adventure',
@@ -81,7 +121,12 @@ const words = [
     example: 'The treasure map led them on a great adventure.',
     hint: 'A fun journey with surprises.',
     level: 'Hard',
-    choices: ['adventure', 'sleep', 'study', 'rest']
+    choices: [
+      'an exciting experience or journey',
+      'a quiet rest at home',
+      'a long sleep without dreams',
+      'a list of things to study'
+    ]
   }
 ];
 
@@ -102,7 +147,7 @@ function getRandomChoices(wordEntry) {
 function showWord(index) {
   const wordEntry = words[index];
   wordDisplay.textContent = wordEntry.word;
-  meaningDisplay.textContent = wordEntry.meaning;
+  meaningDisplay.textContent = 'Tap an answer to reveal the meaning.';
   exampleDisplay.textContent = wordEntry.example;
   hintDisplay.textContent = wordEntry.hint;
   levelDisplay.textContent = wordEntry.level;
@@ -139,6 +184,7 @@ function handleAnswer(choice, wordEntry) {
     buttons.find(btn => btn.textContent === wordEntry.meaning).classList.add('correct');
   }
 
+  meaningDisplay.textContent = wordEntry.meaning;
   updateScore();
   playResultAnimation(choice === wordEntry.meaning);
 }
