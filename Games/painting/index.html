@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Starry Night Puzzle</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Art Puzzle</p>
+        <h1>Starry Night Puzzle</h1>
+        <p class="lead">Reconstruct Van Gogh's famous masterpiece by sliding tiles into place. Shuffle the board and solve the painting.</p>
+      </div>
+      <button id="shuffleBtn">Shuffle Puzzle</button>
+    </header>
+
+    <main>
+      <section class="puzzle-panel">
+        <div class="puzzle-shell" aria-label="Starry Night puzzle board" id="puzzleShell"></div>
+
+        <aside class="puzzle-info">
+          <div class="info-card">
+            <h2>How to play</h2>
+            <p>Click any tile next to the empty space to slide it. Finish the puzzle to reveal the painting.</p>
+          </div>
+          <div class="info-card">
+            <h2>Progress</h2>
+            <p>Moves: <strong id="moveCount">0</strong></p>
+            <p>Status: <span id="statusText">Press shuffle to start.</span></p>
+          </div>
+          <div class="info-card preview-card">
+            <h2>Artwork</h2>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" alt="Starry Night by Vincent van Gogh" />
+          </div>
+        </aside>
+      </section>
+    </main>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
