@@ -30,7 +30,17 @@
             <button class="mode-btn active" type="button" data-mode="timed">Timed</button>
             <button class="mode-btn" type="button" data-mode="untimed">Untimed</button>
           </div>
-          <div class="timer-pill">Time left: <strong id="timerDisplay">15</strong>s</div>
+          <label class="duration-control" for="durationMinutes">
+            Minutes
+            <input id="durationMinutes" type="number" min="1" max="60" value="1" />
+          </label>
+          <div class="word-order-controls" role="group" aria-label="Choose word order">
+            <button class="order-btn active" type="button" data-order="shuffle">Shuffle</button>
+            <button class="order-btn" type="button" data-order="alphabetical">A-Z</button>
+          </div>
+          <button id="soundToggleBtn" class="sound-toggle-btn" type="button" aria-pressed="true">Sound On</button>
+          <button id="pronunciationToggleBtn" class="pronunciation-toggle-btn" type="button" aria-pressed="false">Pronunciation Off</button>
+          <div class="timer-pill">Time left: <strong id="timerDisplay">1:00</strong></div>
         </div>
         <button id="nextWordBtn" class="primary-btn" disabled>Next Word</button>
       </div>
@@ -81,6 +91,12 @@
         <h2>Leaderboard</h2>
         <p class="leaderboard-summary">Top players by score. Keep playing to top the list!</p>
         <ol class="leaderboard-list" id="leaderboardList"></ol>
+      </section>
+
+      <section class="card leaderboard-card">
+        <h2>Correct Per Minute</h2>
+        <p class="leaderboard-summary">Best timed runs ranked by correct answers per minute.</p>
+        <ol class="leaderboard-list" id="speedLeaderboardList"></ol>
       </section>
     </main>
 

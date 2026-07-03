@@ -110,12 +110,17 @@ h1 {
 }
 
 .level-buttons,
-.mode-controls {
+.mode-controls,
+.word-order-controls {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
-.mode-btn {
+.mode-btn,
+.order-btn,
+.sound-toggle-btn,
+.pronunciation-toggle-btn {
   border: none;
   border-radius: 999px;
   padding: 10px 16px;
@@ -128,9 +133,49 @@ h1 {
 }
 
 .mode-btn:hover,
-.mode-btn.active {
+.mode-btn.active,
+.order-btn:hover,
+.order-btn.active,
+.sound-toggle-btn:hover,
+.sound-toggle-btn.active,
+.pronunciation-toggle-btn:hover,
+.pronunciation-toggle-btn.active {
   background: linear-gradient(135deg, #d8b9ff, #f9d8ff);
   transform: translateY(-1px);
+}
+
+.word-order-controls,
+.sound-toggle-btn,
+.pronunciation-toggle-btn {
+  margin-top: 10px;
+}
+
+.duration-control {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #f6edff;
+  color: #7a549e;
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.duration-control input {
+  width: 68px;
+  border: 2px solid rgba(165, 107, 255, 0.2);
+  border-radius: 999px;
+  padding: 8px 10px;
+  color: #50285f;
+  font: inherit;
+  text-align: center;
+}
+
+.duration-control input:focus {
+  outline: none;
+  border-color: #a56bff;
 }
 
 .level-btn {
