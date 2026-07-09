@@ -1,6 +1,6 @@
 # Resume website
 Description:
 This is a resume website.
-![Screenshot](image.png)
+![Screenshot]![alt text](image.png)
 Demo:
-https://finlandyu-eng.github.io/vibecoding/web1/
+https://finlandyu-eng.github.io/vibecoding/web1/index.html
