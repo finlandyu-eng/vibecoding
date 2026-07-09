@@ -14,7 +14,6 @@ const nameSubmitBtn = document.getElementById('nameSubmitBtn');
 const fireworksOverlay = document.getElementById('fireworksOverlay');
 
 const palettes = ['sun', 'sky', 'mint', 'lilac', 'pink'];
-const emojis = ['⭐', '🌈', '🧁', '🎈', '🌟', '🍀', '🐻', '🦄'];
 
 let cards = [];
 let selectedIndices = [];
@@ -69,11 +68,6 @@ function updateLeaderboard() {
   renderLeaderboard();
 }
 
-function pickEmoji(value) {
-  const safeValue = Math.max(1, Math.round(value));
-  return emojis[safeValue % emojis.length];
-}
-
 function formatNumber(value) {
   if (Number.isInteger(value)) {
     return String(value);
@@ -86,7 +80,6 @@ function makeCard(value) {
     id: crypto.randomUUID(),
     value,
     color: palettes[Math.floor(Math.random() * palettes.length)],
-    emoji: pickEmoji(value),
   };
 }
 
@@ -294,11 +287,7 @@ function render() {
       button.classList.add('selected');
     }
     button.type = 'button';
-    button.innerHTML = `
-      <span class="emoji">${card.emoji}</span>
-      <span class="value">${formatNumber(card.value)}</span>
-      <span class="emoji">✨</span>
-    `;
+    button.innerHTML = `<span class="value">${formatNumber(card.value)}</span>`;
     button.addEventListener('click', () => toggleCardSelection(index));
     cardBoard.appendChild(button);
   });
