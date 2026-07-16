@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Blossom & Bloom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff0f5, #ffe4f0, #ffd6e8);
+            color: #5a2d4e;
+            min-height: 100vh;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(219, 112, 147, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.8rem;
+            color: #e75480;
+            text-decoration: none;
+        }
+
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #8e4585;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.4rem 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #e75480;
+            border-bottom-color: #e75480;
+        }
+
+        .content {
+            max-width: 600px;
+            margin: 4rem auto;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(219, 112, 147, 0.15);
+            border: 1px solid rgba(231, 84, 128, 0.1);
+        }
+
+        .content h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            color: #e75480;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .content p {
+            text-align: center;
+            color: #8e4585;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        form { display: flex; flex-direction: column; gap: 1.2rem; }
+
+        label {
+            font-weight: 500;
+            color: #5a2d4e;
+            font-size: 0.9rem;
+        }
+
+        input, textarea {
+            padding: 0.8rem 1rem;
+            border: 2px solid #f5c2d0;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.7);
+            color: #5a2d4e;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #e75480;
+        }
+
+        textarea { resize: vertical; min-height: 120px; }
+
+        button {
+            background: linear-gradient(135deg, #e75480, #c2185b);
+            color: white;
+            border: none;
+            padding: 0.9rem;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(231, 84, 128, 0.4);
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(231, 84, 128, 0.5);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #8e4585;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">Blossom & Bloom</a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <h1>Get in Touch</h1>
+        <p>Have something sweet to say? We'd love to hear from you!</p>
+        <form>
+            <label for="name">Your Name</label>
+            <input type="text" id="name" placeholder="e.g. Belle">
+
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="hello@blossom.com">
+
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="Write something lovely..."></textarea>
+
+            <button type="submit">Send with Love &#128150;</button>
+        </form>
+    </div>
+
+    <footer>
+        Made with &#128150; by Blossom & Bloom &middot; 2026
+    </footer>
+</body>
+</html>

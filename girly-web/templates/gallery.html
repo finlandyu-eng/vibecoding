@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Blossom & Bloom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff0f5, #ffe4f0, #ffd6e8);
+            color: #5a2d4e;
+            min-height: 100vh;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(219, 112, 147, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.8rem;
+            color: #e75480;
+            text-decoration: none;
+        }
+
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #8e4585;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.4rem 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #e75480;
+            border-bottom-color: #e75480;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            color: #e75480;
+            text-align: center;
+            padding: 3rem 1rem 1rem;
+        }
+
+        .gallery {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 2rem 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(219, 112, 147, 0.2);
+            background: rgba(255, 255, 255, 0.85);
+            transition: transform 0.3s;
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1.5rem;
+            border: 1px solid rgba(231, 84, 128, 0.1);
+        }
+
+        .gallery-item:hover { transform: translateY(-5px); }
+
+        .gallery-item .icon { font-size: 4rem; margin-bottom: 1rem; }
+        .gallery-item h3 { color: #e75480; margin-bottom: 0.5rem; }
+        .gallery-item p { color: #8e4585; font-size: 0.85rem; line-height: 1.5; }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #8e4585;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">Blossom & Bloom</a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <h1>Gallery</h1>
+
+    <div class="gallery">
+        <div class="gallery-item">
+            <div class="icon">&#127800;</div>
+            <h3>Cherry Blossoms</h3>
+            <p>Soft pink petals dancing in the spring breeze</p>
+        </div>
+        <div class="gallery-item">
+            <div class="icon">&#127848;</div>
+            <h3>Sweet Treats</h3>
+            <p>Cupcakes, macarons & all things delicious</p>
+        </div>
+        <div class="gallery-item">
+            <div class="icon">&#128171;</div>
+            <h3>Positive Vibes</h3>
+            <p>Uplifting quotes to brighten your day</p>
+        </div>
+        <div class="gallery-item">
+            <div class="icon">&#128144;</div>
+            <h3>Flower Crown</h3>
+            <p>Floral accessories for every occasion</p>
+        </div>
+        <div class="gallery-item">
+            <div class="icon">&#9749;</div>
+            <h3>Cozy Moments</h3>
+            <p>Tea, books & rainy afternoons</p>
+        </div>
+        <div class="gallery-item">
+            <div class="icon">&#128170;</div>
+            <h3>Girl Power</h3>
+            <p>Celebrating strength in every form</p>
+        </div>
+    </div>
+
+    <footer>
+        Made with &#128150; by Blossom & Bloom &middot; 2026
+    </footer>
+</body>
+</html>

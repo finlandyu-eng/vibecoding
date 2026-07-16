@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blossom & Bloom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff0f5, #ffe4f0, #ffd6e8);
+            color: #5a2d4e;
+            min-height: 100vh;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(219, 112, 147, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.8rem;
+            color: #e75480;
+            text-decoration: none;
+        }
+
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #8e4585;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.4rem 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #e75480;
+            border-bottom-color: #e75480;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 5rem 2rem 4rem;
+        }
+
+        .hero h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.5rem;
+            color: #e75480;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(231, 84, 128, 0.15);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: #8e4585;
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .sparkle-divider {
+            text-align: center;
+            padding: 1rem 0;
+            font-size: 1.5rem;
+            letter-spacing: 0.5rem;
+            color: #e75480;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(219, 112, 147, 0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(231, 84, 128, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(219, 112, 147, 0.25);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            color: #e75480;
+            margin-bottom: 0.75rem;
+        }
+
+        .card p {
+            color: #8e4585;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .cta {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .cta a {
+            display: inline-block;
+            background: linear-gradient(135deg, #e75480, #c2185b);
+            color: white;
+            text-decoration: none;
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 1rem;
+            box-shadow: 0 4px 20px rgba(231, 84, 128, 0.4);
+            transition: all 0.3s;
+        }
+
+        .cta a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(231, 84, 128, 0.5);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #8e4585;
+            font-size: 0.85rem;
+            margin-top: 2rem;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating { animation: float 3s ease-in-out infinite; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">Blossom & Bloom</a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1 class="floating">Welcome, Beautiful</h1>
+        <p>A dreamy little corner of the internet made just for you. Shine bright, be kind, and never stop blooming.</p>
+    </section>
+
+    <div class="sparkle-divider">&#10024; &#10024; &#10024;</div>
+
+    <section class="cards">
+        <div class="card">
+            <div class="card-icon">&#127800;</div>
+            <h3>Self Care</h3>
+            <p>Prioritize yourself. Face masks, journaling, cozy blankets, and all things relaxing.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">&#10024;</div>
+            <h3>Inspiration</h3>
+            <p>Daily doses of motivation to keep you glowing from the inside out.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">&#128140;</div>
+            <h3>Community</h3>
+            <p>Surround yourself with uplifting souls who cheer you on every step of the way.</p>
+        </div>
+    </section>
+
+    <section class="cta">
+        <a href="/gallery">Explore the Gallery</a>
+    </section>
+
+    <footer>
+        Made with &#128150; by Blossom & Bloom &middot; 2026
+    </footer>
+</body>
+</html>
