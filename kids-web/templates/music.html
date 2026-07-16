@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+{% block title %}Fun Zone - Music{% endblock %}
+
+{% block styles %}
+<style>
+    .music-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 2rem 2rem;
+    }
+
+    .piano {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        margin-bottom: 2rem;
+    }
+
+    .piano h2 {
+        font-family: 'Fredoka One', cursive;
+        color: #ff6b6b;
+        margin-bottom: 1rem;
+    }
+
+    .piano-keys {
+        display: flex;
+        justify-content: center;
+        gap: 0.3rem;
+        flex-wrap: wrap;
+    }
+
+    .key {
+        width: 60px;
+        height: 180px;
+        border-radius: 0 0 10px 10px;
+        cursor: pointer;
+        transition: all 0.1s;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 1rem;
+        font-family: 'Fredoka One', cursive;
+        font-size: 0.9rem;
+        user-select: none;
+    }
+
+    .key-white {
+        background: white;
+        border: 2px solid #ddd;
+        color: #999;
+    }
+
+    .key-white:hover { background: #f0f0f0; }
+    .key-white:active { background: #e0e0e0; transform: scale(0.98); }
+
+    .key-colored {
+        color: white;
+        text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+    }
+
+    .drums {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        margin-bottom: 2rem;
+    }
+
+    .drums h2 {
+        font-family: 'Fredoka One', cursive;
+        color: #48dbfb;
+        margin-bottom: 1rem;
+    }
+
+    .drum-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+
+    .drum-btn {
+        font-size: 3rem;
+        border: none;
+        border-radius: 15px;
+        padding: 1.5rem;
+        cursor: pointer;
+        transition: all 0.15s;
+        color: white;
+        text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+    }
+
+    .drum-btn:hover { transform: scale(1.05); }
+    .drum-btn:active { transform: scale(0.9); }
+
+    .songs {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    .songs h2 {
+        font-family: 'Fredoka One', cursive;
+        color: #1dd1a1;
+        margin-bottom: 1rem;
+    }
+
+    .song-btn {
+        display: block;
+        width: 100%;
+        padding: 1rem;
+        margin: 0.8rem 0;
+        border: none;
+        border-radius: 15px;
+        font-family: 'Fredoka One', cursive;
+        font-size: 1.1rem;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+    }
+
+    .song-btn:hover { transform: translateX(5px); }
+    .song-btn:active { transform: scale(0.98); }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="page-title">&#127925; Make Music!</h1>
+
+<div class="music-container">
+    <div class="piano">
+        <h2>Click the Keys!</h2>
+        <div class="piano-keys">
+            <div class="key key-colored" style="background:#ff6b6b;" onclick="playNote(261.63, 'C')">C</div>
+            <div class="key key-colored" style="background:#ff9f43;" onclick="playNote(293.66, 'D')">D</div>
+            <div class="key key-colored" style="background:#feca57; color:#333;" onclick="playNote(329.63, 'E')">E</div>
+            <div class="key key-colored" style="background:#1dd1a1;" onclick="playNote(349.23, 'F')">F</div>
+            <div class="key key-colored" style="background:#48dbfb;" onclick="playNote(392.00, 'G')">G</div>
+            <div class="key key-colored" style="background:#a29bfe;" onclick="playNote(440.00, 'A')">A</div>
+            <div class="key key-colored" style="background:#ff9ff3;" onclick="playNote(493.88, 'B')">B</div>
+            <div class="key key-colored" style="background:#ff6b6b;" onclick="playNote(523.25, 'C2')">C2</div>
+        </div>
+    </div>
+
+    <div class="drums">
+        <h2>Drum Kit!</h2>
+        <div class="drum-grid">
+            <button class="drum-btn" style="background: linear-gradient(135deg, #ff6b6b, #ee5a5a);" onclick="playDrum('kick')">&#129345;</button>
+            <button class="drum-btn" style="background: linear-gradient(135deg, #feca57, #ff9f43);" onclick="playDrum('snare')">&#129346;</button>
+            <button class="drum-btn" style="background: linear-gradient(135deg, #48dbfb, #0abde3);" onclick="playDrum('hihat')">&#128167;</button>
+            <button class="drum-btn" style="background: linear-gradient(135deg, #1dd1a1, #10ac84);" onclick="playDrum('tom')">&#127928;</button>
+            <button class="drum-btn" style="background: linear-gradient(135deg, #a29bfe, #6c5ce7);" onclick="playDrum('cymbal')">&#11088;</button>
+            <button class="drum-btn" style="background: linear-gradient(135deg, #ff9ff3, #f368e0);" onclick="playDrum('clap')">&#128079;</button>
+        </div>
+    </div>
+
+    <div class="songs">
+        <h2>Sing Along!</h2>
+        <button class="song-btn" style="background: linear-gradient(135deg, #ff6b6b, #ee5a5a);" onclick="singSong('twinkle')">Twinkle Twinkle</button>
+        <button class="song-btn" style="background: linear-gradient(135deg, #48dbfb, #0abde3);" onclick="singSong('mary')">Mary Had a Little Lamb</button>
+        <button class="song-btn" style="background: linear-gradient(135deg, #1dd1a1, #10ac84);" onclick="singSong('abc')">The ABC Song</button>
+        <button class="song-btn" style="background: linear-gradient(135deg, #feca57, #ff9f43);" onclick="singSong('oldmac')">Old MacDonald</button>
+    </div>
+</div>
+
+<section style="text-align:center; padding: 1rem 2rem 3rem;">
+    <button class="btn btn-pink" onclick="spawnConfetti()">Confetti! &#127881;</button>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playNote(freq, name) {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.frequency.value = freq;
+        osc.type = 'sine';
+        gain.gain.value = 0.3;
+        osc.start();
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+        osc.stop(audioCtx.currentTime + 0.5);
+        speak(name);
+    }
+
+    function playDrum(type) {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        switch(type) {
+            case 'kick':
+                osc.frequency.value = 80;
+                osc.type = 'sine';
+                gain.gain.value = 0.5;
+                osc.start();
+                osc.frequency.exponentialRampToValueAtTime(20, audioCtx.currentTime + 0.2);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+                osc.stop(audioCtx.currentTime + 0.2);
+                break;
+            case 'snare':
+                osc.frequency.value = 200;
+                osc.type = 'triangle';
+                gain.gain.value = 0.3;
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+                osc.stop(audioCtx.currentTime + 0.15);
+                break;
+            case 'hihat':
+                osc.frequency.value = 8000;
+                osc.type = 'square';
+                gain.gain.value = 0.1;
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+                osc.stop(audioCtx.currentTime + 0.05);
+                break;
+            case 'tom':
+                osc.frequency.value = 300;
+                osc.type = 'sine';
+                gain.gain.value = 0.4;
+                osc.start();
+                osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.3);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                osc.stop(audioCtx.currentTime + 0.3);
+                break;
+            case 'cymbal':
+                osc.frequency.value = 6000;
+                osc.type = 'sawtooth';
+                gain.gain.value = 0.15;
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+                osc.stop(audioCtx.currentTime + 0.4);
+                break;
+            case 'clap':
+                osc.frequency.value = 1000;
+                osc.type = 'square';
+                gain.gain.value = 0.15;
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+                osc.stop(audioCtx.currentTime + 0.1);
+                break;
+        }
+    }
+
+    function singSong(song) {
+        switch(song) {
+            case 'twinkle':
+                speak('Twinkle, twinkle, little star, how I wonder what you are!');
+                break;
+            case 'mary':
+                speak('Mary had a little lamb, little lamb, little lamb. Mary had a little lamb, its fleece was white as snow!');
+                break;
+            case 'abc':
+                speak('A B C D E F G, H I J K L M N O P, Q R S T U V, W X Y and Z!');
+                break;
+            case 'oldmac':
+                speak('Old MacDonald had a farm, E-I-E-I-O! And on his farm he had a cow, E-I-E-I-O!');
+                break;
+        }
+        spawnConfetti();
+    }
+</script>
+{% endblock %}

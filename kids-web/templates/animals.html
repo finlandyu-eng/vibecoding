@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% block title %}Fun Zone - Animals{% endblock %}
+
+{% block styles %}
+<style>
+    .animal-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1.5rem;
+        max-width: 800px;
+        margin: 0 auto 2rem;
+        padding: 0 2rem;
+    }
+
+    .animal-card {
+        background: white;
+        border-radius: 20px;
+        padding: 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        border: 3px solid transparent;
+        user-select: none;
+    }
+
+    .animal-card:hover {
+        transform: scale(1.1) rotate(-3deg);
+        border-color: #48dbfb;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .animal-card:active {
+        transform: scale(0.95);
+    }
+
+    .animal-card .emoji {
+        font-size: 4rem;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .animal-card .name {
+        font-family: 'Fredoka One', cursive;
+        font-size: 1.1rem;
+        color: #333;
+    }
+
+    .fact-box {
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        padding: 2rem;
+        background: white;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        border: 3px dashed #1dd1a1;
+        min-height: 150px;
+    }
+
+    .fact-box h2 {
+        font-family: 'Fredoka One', cursive;
+        color: #1dd1a1;
+        margin-bottom: 1rem;
+    }
+
+    .fact-animal {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .fact-text {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #555;
+    }
+
+    .sound-btn {
+        margin-top: 1rem;
+        font-size: 2rem;
+        background: #feca57;
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .sound-btn:hover {
+        transform: scale(1.2);
+        background: #ff9f43;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="page-title">&#128062; Animal Friends!</h1>
+
+<section class="animal-grid">
+    <div class="animal-card" onclick="speak('Dog'); speak('Woof woof!')">
+        <span class="emoji">&#128054;</span>
+        <span class="name">Dog</span>
+    </div>
+    <div class="animal-card" onclick="speak('Cat'); speak('Meow!')">
+        <span class="emoji">&#128049;</span>
+        <span class="name">Cat</span>
+    </div>
+    <div class="animal-card" onclick="speak('Elephant'); speak('Tooooot!')">
+        <span class="emoji">&#128024;</span>
+        <span class="name">Elephant</span>
+    </div>
+    <div class="animal-card" onclick="speak('Lion'); speak('Roar!')">
+        <span class="emoji">&#129409;</span>
+        <span class="name">Lion</span>
+    </div>
+    <div class="animal-card" onclick="speak('Penguin'); speak('Haha penguins are funny!')">
+        <span class="emoji">&#128039;</span>
+        <span class="name">Penguin</span>
+    </div>
+    <div class="animal-card" onclick="speak('Giraffe'); speak('Giraffes are so tall!')">
+        <span class="emoji">&#129426;</span>
+        <span class="name">Giraffe</span>
+    </div>
+    <div class="animal-card" onclick="speak('Dolphin'); speak('Click click!')">
+        <span class="emoji">&#128044;</span>
+        <span class="name">Dolphin</span>
+    </div>
+    <div class="animal-card" onclick="speak('Rabbit'); speak('Hop hop!')">
+        <span class="emoji">&#128048;</span>
+        <span class="name">Rabbit</span>
+    </div>
+    <div class="animal-card" onclick="speak('Bear'); speak('Grrr!')">
+        <span class="emoji">&#128059;</span>
+        <span class="name">Bear</span>
+    </div>
+    <div class="animal-card" onclick="speak('Monkey'); speak('Ooh ooh ah ah!')">
+        <span class="emoji">&#128053;</span>
+        <span class="name">Monkey</span>
+    </div>
+    <div class="animal-card" onclick="speak('Owl'); speak('Hoot hoot!')">
+        <span class="emoji">&#129417;</span>
+        <span class="name">Owl</span>
+    </div>
+    <div class="animal-card" onclick="speak('Frog'); speak('Ribbit ribbit!')">
+        <span class="emoji">&#128056;</span>
+        <span class="name">Frog</span>
+    </div>
+</section>
+
+<section class="fact-box">
+    <h2>Did You Know? &#129300;</h2>
+    <div class="fact-animal" id="fact-emoji"></div>
+    <div class="fact-text" id="fact-text">Click the button for a fun fact!</div>
+    <button class="btn btn-green" onclick="getFact()">Fun Fact! &#128161;</button>
+</section>
+
+<section style="text-align:center; padding: 1rem 2rem 3rem;">
+    <button class="btn btn-red" onclick="spawnConfetti()">Confetti! &#127881;</button>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function getFact() {
+        fetch('/api/animal-fact')
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('fact-emoji').textContent = data.emoji;
+                document.getElementById('fact-text').textContent = data.animal + ': ' + data.fact;
+                speak(data.animal + ' fact! ' + data.fact);
+                document.getElementById('fact-emoji').style.animation = 'none';
+                setTimeout(() => {
+                    document.getElementById('fact-emoji').style.animation = 'bounce 0.6s ease 3';
+                }, 10);
+                spawnConfetti();
+            });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% block title %}Fun Zone - Colors{% endblock %}
+
+{% block styles %}
+<style>
+    .color-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1.5rem;
+        max-width: 800px;
+        margin: 0 auto 2rem;
+        padding: 0 2rem;
+    }
+
+    .color-card {
+        border-radius: 20px;
+        padding: 2rem 1rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        color: white;
+        font-family: 'Fredoka One', cursive;
+        font-size: 1.2rem;
+        text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        user-select: none;
+    }
+
+    .color-card:hover {
+        transform: scale(1.1) rotate(3deg);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+
+    .color-card:active {
+        transform: scale(0.9);
+    }
+
+    .color-card .emoji {
+        font-size: 3rem;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .color-mixer {
+        max-width: 500px;
+        margin: 0 auto 2rem;
+        padding: 2rem;
+        background: white;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    .color-mixer h2 {
+        font-family: 'Fredoka One', cursive;
+        color: #a29bfe;
+        margin-bottom: 1rem;
+    }
+
+    .mix-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 1.5rem;
+    }
+
+    .mix-btn {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: 4px solid white;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+
+    .mix-btn:hover {
+        transform: scale(1.2);
+    }
+
+    .mix-btn.selected {
+        border-color: #333;
+        transform: scale(1.15);
+    }
+
+    .result-circle {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin: 1rem auto;
+        background: #eee;
+        transition: background 0.5s;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .rainbow-section {
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        padding: 2rem;
+        background: white;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    .rainbow-section h2 {
+        font-family: 'Fredoka One', cursive;
+        background: linear-gradient(90deg, #ff6b6b, #feca57, #1dd1a1, #48dbfb, #a29bfe, #ff9ff3);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1rem;
+    }
+
+    .rainbow-bar {
+        height: 30px;
+        border-radius: 15px;
+        background: linear-gradient(90deg, #ff6b6b, #feca57, #1dd1a1, #48dbfb, #a29bfe, #ff9ff3);
+        margin-bottom: 1rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="page-title">&#127912; Rainbow Colors!</h1>
+
+<section class="color-grid">
+    <div class="color-card" style="background: #ff6b6b;" onclick="speak('Red!')">
+        <span class="emoji">&#128997;</span>
+        Red
+    </div>
+    <div class="color-card" style="background: #ff9f43;" onclick="speak('Orange!')">
+        <span class="emoji">&#128992;</span>
+        Orange
+    </div>
+    <div class="color-card" style="background: #feca57; color: #333; text-shadow: none;" onclick="speak('Yellow!')">
+        <span class="emoji">&#128993;</span>
+        Yellow
+    </div>
+    <div class="color-card" style="background: #1dd1a1;" onclick="speak('Green!')">
+        <span class="emoji">&#128994;</span>
+        Green
+    </div>
+    <div class="color-card" style="background: #48dbfb;" onclick="speak('Blue!')">
+        <span class="emoji">&#128309;</span>
+        Blue
+    </div>
+    <div class="color-card" style="background: #a29bfe;" onclick="speak('Purple!')">
+        <span class="emoji">&#128308;</span>
+        Purple
+    </div>
+    <div class="color-card" style="background: #ff9ff3;" onclick="speak('Pink!')">
+        <span class="emoji">&#128167;</span>
+        Pink
+    </div>
+    <div class="color-card" style="background: #555;" onclick="speak('Black!')">
+        <span class="emoji">&#128308;</span>
+        Black
+    </div>
+</section>
+
+<section class="color-mixer">
+    <h2>Mix Two Colors! &#127912;</h2>
+    <div class="mix-buttons">
+        <div class="mix-btn" style="background: #ff6b6b;" onclick="selectColor(this, '#ff6b6b')"></div>
+        <div class="mix-btn" style="background: #feca57;" onclick="selectColor(this, '#feca57')"></div>
+        <div class="mix-btn" style="background: #48dbfb;" onclick="selectColor(this, '#48dbfb')"></div>
+        <div class="mix-btn" style="background: #ff9ff3;" onclick="selectColor(this, '#ff9ff3')"></div>
+        <div class="mix-btn" style="background: #1dd1a1;" onclick="selectColor(this, '#1dd1a1')"></div>
+    </div>
+    <div class="result-circle" id="result-circle"></div>
+    <button class="btn btn-purple" onclick="mixColors()">Mix! &#9889;</button>
+</section>
+
+<section class="rainbow-section">
+    <h2>The Rainbow!</h2>
+    <div class="rainbow-bar"></div>
+    <button class="btn btn-red" onclick="speak('Red, Orange, Yellow, Green, Blue, Purple! The rainbow!')">Say Rainbow! &#127752;</button>
+</section>
+
+<section style="text-align:center; padding: 1rem 2rem 3rem;">
+    <button class="btn btn-yellow" onclick="spawnConfetti()">Confetti! &#127881;</button>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let selected = [];
+
+    function selectColor(el, color) {
+        el.classList.toggle('selected');
+        if (selected.includes(color)) {
+            selected = selected.filter(c => c !== color);
+        } else {
+            if (selected.length >= 2) {
+                document.querySelectorAll('.mix-btn').forEach(b => b.classList.remove('selected'));
+                selected = [color];
+                el.classList.add('selected');
+            } else {
+                selected.push(color);
+            }
+        }
+    }
+
+    function mixColors() {
+        if (selected.length < 2) {
+            speak('Pick two colors first!');
+            return;
+        }
+        const mix = (c1, c2) => {
+            const hex = c => parseInt(c.slice(1), 16);
+            const h1 = hex(c1), h2 = hex(c2);
+            const r = Math.round(((h1 >> 16) & 255) + ((h2 >> 16) & 255)) / 2;
+            const g = Math.round(((h1 >> 8) & 255) + ((h2 >> 8) & 255)) / 2;
+            const b = Math.round((h1 & 255) + (h2 & 255)) / 2;
+            return `rgb(${Math.round(r)},${Math.round(g)},${Math.round(b)})`;
+        };
+        const result = mix(selected[0], selected[1]);
+        document.getElementById('result-circle').style.background = result;
+        speak('Wow, look at that color!');
+        spawnConfetti();
+    }
+</script>
+{% endblock %}

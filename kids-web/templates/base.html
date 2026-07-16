@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Fun Zone{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: #fff9c4;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        nav {
+            background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff);
+            background-size: 300% 300%;
+            animation: rainbow 5s ease infinite;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .logo {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2rem;
+            color: white;
+            text-decoration: none;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+        }
+
+        .nav-links { display: flex; gap: 1rem; list-style: none; flex-wrap: wrap; }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.3);
+            transition: all 0.3s;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.5);
+            transform: scale(1.1) rotate(-2deg);
+        }
+
+        .page-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3rem;
+            text-align: center;
+            padding: 2rem;
+            color: #ff6b6b;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(5deg); }
+            66% { transform: translateY(-5px) rotate(-5deg); }
+        }
+
+        .bounce { animation: bounce 0.6s ease infinite; }
+        .wiggle { animation: wiggle 0.5s ease infinite; }
+        .pop { animation: pop 0.3s ease; }
+        .float { animation: float 3s ease-in-out infinite; }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.2rem;
+            text-decoration: none;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0) scale(0.95);
+        }
+
+        .btn-red { background: linear-gradient(135deg, #ff6b6b, #ee5a5a); }
+        .btn-blue { background: linear-gradient(135deg, #48dbfb, #0abde3); }
+        .btn-green { background: linear-gradient(135deg, #1dd1a1, #10ac84); }
+        .btn-purple { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
+        .btn-yellow { background: linear-gradient(135deg, #feca57, #ff9f43); color: #333; }
+        .btn-pink { background: linear-gradient(135deg, #ff9ff3, #f368e0); }
+
+        .rainbow-text {
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #1dd1a1);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow-text 3s linear infinite;
+        }
+
+        @keyframes rainbow-text {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+            animation: fall 3s linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+    </style>
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">Fun Zone!</a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/animals">Animals</a></li>
+            <li><a href="/colors">Colors</a></li>
+            <li><a href="/games">Games</a></li>
+            <li><a href="/music">Music</a></li>
+        </ul>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <footer>
+        Made with love for kids everywhere! &hearts;
+    </footer>
+
+    <script>
+        function spawnConfetti() {
+            const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff', '#1dd1a1', '#a29bfe', '#ff9f43'];
+            for (let i = 0; i < 30; i++) {
+                const el = document.createElement('div');
+                el.className = 'confetti';
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.background = colors[Math.floor(Math.random() * colors.length)];
+                el.style.width = Math.random() * 10 + 5 + 'px';
+                el.style.height = el.style.width;
+                el.style.animationDuration = Math.random() * 2 + 2 + 's';
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 4000);
+            }
+        }
+
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                const u = new SpeechSynthesisUtterance(text);
+                u.rate = 0.8;
+                u.pitch = 1.2;
+                speechSynthesis.speak(u);
+            }
+        }
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

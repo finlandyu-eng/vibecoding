@@ -1,0 +1,266 @@
+{% extends "base.html" %}
+{% block title %}Fun Zone - Games{% endblock %}
+
+{% block styles %}
+<style>
+    .games-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 0 2rem 2rem;
+    }
+
+    .game-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        margin-bottom: 2rem;
+        border: 3px solid transparent;
+        transition: border-color 0.3s;
+    }
+
+    .game-card h2 {
+        font-family: 'Fredoka One', cursive;
+        margin-bottom: 1rem;
+    }
+
+    .game-card:nth-child(1) h2 { color: #ff6b6b; border-bottom: 3px dashed #ff6b6b; padding-bottom: 0.5rem; }
+    .game-card:nth-child(2) h2 { color: #48dbfb; border-bottom: 3px dashed #48dbfb; padding-bottom: 0.5rem; }
+    .game-card:nth-child(3) h2 { color: #1dd1a1; border-bottom: 3px dashed #1dd1a1; padding-bottom: 0.5rem; }
+
+    .game-emoji {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+    }
+
+    .number-display {
+        font-family: 'Fredoka One', cursive;
+        font-size: 5rem;
+        color: #feca57;
+        text-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+        margin: 1rem 0;
+        min-height: 80px;
+    }
+
+    .guess-input {
+        font-family: 'Fredoka One', cursive;
+        font-size: 2rem;
+        width: 100px;
+        height: 60px;
+        text-align: center;
+        border: 3px solid #a29bfe;
+        border-radius: 15px;
+        outline: none;
+        margin: 0.5rem;
+    }
+
+    .guess-input:focus {
+        border-color: #6c5ce7;
+        box-shadow: 0 0 10px rgba(108, 92, 231, 0.3);
+    }
+
+    .message {
+        font-family: 'Fredoka One', cursive;
+        font-size: 1.3rem;
+        margin: 1rem 0;
+        min-height: 40px;
+    }
+
+    .message.correct { color: #1dd1a1; }
+    .message.wrong { color: #ff6b6b; }
+
+    .score {
+        font-family: 'Fredoka One', cursive;
+        font-size: 1.5rem;
+        color: #a29bfe;
+    }
+
+    .counting-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.8rem;
+        margin: 1rem 0;
+    }
+
+    .count-emoji {
+        font-size: 2rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        user-select: none;
+        padding: 0.5rem;
+        border-radius: 10px;
+        background: #f8f9fa;
+    }
+
+    .count-emoji:hover {
+        transform: scale(1.3);
+        background: #e8f8f5;
+    }
+
+    .count-emoji.clicked {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+
+    .count-display {
+        font-family: 'Fredoka One', cursive;
+        font-size: 3rem;
+        color: #1dd1a1;
+    }
+
+    .reaction-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+
+    .reaction-btn {
+        font-size: 3rem;
+        background: white;
+        border: 3px solid #eee;
+        border-radius: 15px;
+        padding: 1rem;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .reaction-btn:hover {
+        transform: scale(1.2) rotate(10deg);
+        border-color: #feca57;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="page-title">&#127918; Play Games!</h1>
+
+<div class="games-container">
+    <!-- Number Guessing Game -->
+    <div class="game-card">
+        <h2>Guess the Number!</h2>
+        <div class="game-emoji">&#127922;</div>
+        <p>I'm thinking of a number between 1 and 10...</p>
+        <div class="number-display" id="guess-display">?</div>
+        <input type="number" class="guess-input" id="guess-input" min="1" max="10" placeholder="?">
+        <br>
+        <button class="btn btn-red" onclick="makeGuess()">Guess!</button>
+        <div class="message" id="guess-message"></div>
+        <div class="score">Score: <span id="guess-score">0</span></div>
+    </div>
+
+    <!-- Emoji Counter -->
+    <div class="game-card">
+        <h2>Count the Animals!</h2>
+        <div class="game-emoji">&#129504;</div>
+        <p>Click each animal to count them!</p>
+        <div class="counting-grid" id="counting-grid"></div>
+        <div class="count-display">You counted: <span id="count-result">0</span></div>
+        <button class="btn btn-blue" onclick="resetCount()">New Round!</button>
+    </div>
+
+    <!-- Reaction Game -->
+    <div class="game-card">
+        <h2>Silly Faces!</h2>
+        <div class="game-emoji">&#129312;</div>
+        <p>Click the faces to hear their sounds!</p>
+        <div class="reaction-grid">
+            <button class="reaction-btn" onclick="speak('Hahaha! That tickles!')">&#128516;</button>
+            <button class="reaction-btn" onclick="speak('Boo! Did I scare you?')">&#128520;</button>
+            <button class="reaction-btn" onclick="speak('Wow, thats amazing!')">&#129326;</button>
+            <button class="reaction-btn" onclick="speak('I love you!')">&#128151;</button>
+            <button class="reaction-btn" onclick="speak('Thats so funny!')">&#128514;</button>
+            <button class="reaction-btn" onclick="speak('Yay! Great job!')">&#128175;</button>
+        </div>
+    </div>
+</div>
+
+<section style="text-align:center; padding: 1rem 2rem 3rem;">
+    <button class="btn btn-pink" onclick="spawnConfetti()">Confetti! &#127881;</button>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Number Guessing Game
+    let secretNumber = Math.floor(Math.random() * 10) + 1;
+    let guessScore = 0;
+
+    function makeGuess() {
+        const input = document.getElementById('guess-input');
+        const guess = parseInt(input.value);
+        const display = document.getElementById('guess-display');
+        const msg = document.getElementById('guess-message');
+
+        if (isNaN(guess) || guess < 1 || guess > 10) {
+            msg.textContent = 'Pick a number 1-10!';
+            msg.className = 'message wrong';
+            speak('Pick a number between 1 and 10!');
+            return;
+        }
+
+        display.textContent = guess;
+
+        if (guess === secretNumber) {
+            msg.textContent = 'You got it! Yay!';
+            msg.className = 'message correct';
+            guessScore++;
+            document.getElementById('guess-score').textContent = guessScore;
+            speak('You got it! The number was ' + secretNumber + '!');
+            spawnConfetti();
+            secretNumber = Math.floor(Math.random() * 10) + 1;
+            setTimeout(() => { display.textContent = '?'; }, 2000);
+        } else if (guess < secretNumber) {
+            msg.textContent = 'Too low! Try higher!';
+            msg.className = 'message wrong';
+            speak('Too low! Try a bigger number!');
+        } else {
+            msg.textContent = 'Too high! Try lower!';
+            msg.className = 'message wrong';
+            speak('Too high! Try a smaller number!');
+        }
+        input.value = '';
+    }
+
+    document.getElementById('guess-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') makeGuess();
+    });
+
+    // Counting Game
+    const animalEmojis = ['&#128049;', '&#128054;', '&#128059;', '&#129409;', '&#128039;', '&#129426;', '&#128053;', '&#128048;', '&#128056;', '&#129417;'];
+    let clickedCount = 0;
+
+    function resetCount() {
+        clickedCount = 0;
+        document.getElementById('count-result').textContent = '0';
+        const grid = document.getElementById('counting-grid');
+        grid.innerHTML = '';
+        const count = Math.floor(Math.random() * 8) + 5;
+        const selectedAnimal = animalEmojis[Math.floor(Math.random() * animalEmojis.length)];
+
+        for (let i = 0; i < 15; i++) {
+            const span = document.createElement('span');
+            span.className = 'count-emoji';
+            if (i < count) {
+                span.innerHTML = selectedAnimal;
+                span.onclick = function() {
+                    if (!this.classList.contains('clicked')) {
+                        this.classList.add('clicked');
+                        clickedCount++;
+                        document.getElementById('count-result').textContent = clickedCount;
+                        speak(clickedCount.toString());
+                    }
+                };
+            } else {
+                span.innerHTML = animalEmojis[Math.floor(Math.random() * animalEmojis.length)];
+            }
+            grid.appendChild(span);
+        }
+        speak('Count the ' + count + ' matching animals!');
+    }
+
+    resetCount();
+</script>
+{% endblock %}
