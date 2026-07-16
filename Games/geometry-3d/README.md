@@ -3,9 +3,9 @@
 Description:
 3D python game
 
-![Screenshot](screenshot.png)
+![Screenshot]![alt text](image.png)
 
-![Screenshot2](screenshot2.png)
+![Screenshot2]![alt text](image-1.png)
 
 Demo:
 https://...
