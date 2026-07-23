@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Blossom & Bloom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff0f5, #ffe4f0, #ffd6e8);
+            color: #5a2d4e;
+            min-height: 100vh;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(219, 112, 147, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.8rem;
+            color: #e75480;
+            text-decoration: none;
+        }
+
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #8e4585;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.4rem 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #e75480;
+            border-bottom-color: #e75480;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3rem;
+            color: #e75480;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            color: #8e4585;
+            font-size: 1.05rem;
+            max-width: 450px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .posts {
+            max-width: 750px;
+            margin: 2rem auto;
+            padding: 0 2rem 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .post-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(219, 112, 147, 0.12);
+            border: 1px solid rgba(231, 84, 128, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .post-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(219, 112, 147, 0.22);
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .post-icon { font-size: 2rem; }
+
+        .post-category {
+            background: rgba(231, 84, 128, 0.1);
+            color: #e75480;
+            padding: 0.25rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .post-date {
+            color: #b88a9e;
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+
+        .post-card h2 {
+            font-size: 1.4rem;
+            color: #e75480;
+            margin-bottom: 0.6rem;
+            font-family: 'Pacifico', cursive;
+        }
+
+        .post-card p {
+            color: #8e4585;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .read-more {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #e75480;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .read-more::after { content: " \2192"; }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #8e4585;
+            font-size: 0.85rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">Blossom & Bloom</a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/blog" class="active">Blog</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1>The Blog</h1>
+        <p>Little thoughts, big feelings, and everything in between.</p>
+    </section>
+
+    <div class="posts">
+        {% for post in posts %}
+        <a href="/blog/{{ post.slug }}" class="post-card">
+            <div class="post-meta">
+                <span class="post-icon">{{ post.icon }}</span>
+                <span class="post-category">{{ post.category }}</span>
+                <span class="post-date">{{ post.date }}</span>
+            </div>
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.excerpt }}</p>
+            <span class="read-more">Read more</span>
+        </a>
+        {% endfor %}
+    </div>
+
+    <footer>
+        Made with &#128150; by Blossom & Bloom &middot; 2026
+    </footer>
+</body>
+</html>

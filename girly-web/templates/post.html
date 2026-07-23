@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Blossom & Bloom</title>
+    <title>{{ post.title }} - Blossom & Bloom</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -47,54 +47,92 @@
             transition: all 0.3s;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover, .nav-links a.active {
             color: #e75480;
             border-bottom-color: #e75480;
         }
 
-        .content {
+        .back-link {
+            display: inline-block;
+            margin: 3rem auto 0;
             max-width: 700px;
-            margin: 4rem auto;
-            padding: 3rem;
+            padding: 0 2rem;
+            text-decoration: none;
+            color: #e75480;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .back-link::before { content: "\2190 "; }
+
+        .article {
+            max-width: 700px;
+            margin: 1.5rem auto 3rem;
+            padding: 2.5rem;
             background: rgba(255, 255, 255, 0.8);
             border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(219, 112, 147, 0.15);
+            box-shadow: 0 8px 30px rgba(219, 112, 147, 0.12);
             border: 1px solid rgba(231, 84, 128, 0.1);
         }
 
-        .content h1 {
+        .article-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(231, 84, 128, 0.1);
+        }
+
+        .article-header .icon { font-size: 3rem; margin-bottom: 0.8rem; }
+
+        .article-header h1 {
             font-family: 'Pacifico', cursive;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: #e75480;
-            margin-bottom: 1.5rem;
-            text-align: center;
+            margin-bottom: 0.8rem;
         }
 
-        .content p {
-            color: #8e4585;
-            line-height: 1.8;
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .article-category {
+            background: rgba(231, 84, 128, 0.1);
+            color: #e75480;
+            padding: 0.25rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .article-date {
+            color: #b88a9e;
+            font-size: 0.85rem;
+        }
+
+        .article-body {
+            color: #5a2d4e;
+            line-height: 1.9;
             font-size: 1.05rem;
+        }
+
+        .article-body p {
             margin-bottom: 1.2rem;
+        }
+
+        .article-body strong {
+            color: #e75480;
+        }
+
+        .divider {
             text-align: center;
+            padding: 1.5rem 0;
+            font-size: 1.2rem;
+            letter-spacing: 0.5rem;
+            color: #e75480;
         }
-
-        .values {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .value-item {
-            text-align: center;
-            padding: 1.5rem;
-            background: rgba(255, 240, 245, 0.7);
-            border-radius: 15px;
-        }
-
-        .value-item span { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
-        .value-item h3 { color: #e75480; margin-bottom: 0.3rem; }
-        .value-item p { font-size: 0.9rem; color: #8e4585; margin: 0; }
 
         footer {
             text-align: center;
@@ -111,40 +149,29 @@
         <ul class="nav-links">
             <li><a href="/">Home</a></li>
             <li><a href="/about">About</a></li>
-            <li><a href="/blog">Blog</a></li>
+            <li><a href="/blog" class="active">Blog</a></li>
             <li><a href="/gallery">Gallery</a></li>
             <li><a href="/contact">Contact</a></li>
         </ul>
     </nav>
 
-    <div class="content">
-        <h1>About Us</h1>
-        <p>Blossom & Bloom is a cozy little space dedicated to celebrating femininity, self-love, and the beauty in everyday moments.</p>
-        <p>Whether you're here for inspiration, relaxation, or just a dose of cuteness, you're in the right place. We believe every girl deserves a corner of the internet that feels like home.</p>
+    <a href="/blog" class="back-link">Back to all posts</a>
 
-        <div class="values">
-            <div class="value-item">
-                <span>&#127800;</span>
-                <h3>Growth</h3>
-                <p>Bloom at your own pace</p>
-            </div>
-            <div class="value-item">
-                <span>&#128150;</span>
-                <h3>Kindness</h3>
-                <p>Spread love everywhere</p>
-            </div>
-            <div class="value-item">
-                <span>&#10024;</span>
-                <h3>Joy</h3>
-                <p>Find magic in the mundane</p>
-            </div>
-            <div class="value-item">
-                <span>&#127775;</span>
-                <h3>Confidence</h3>
-                <p>Shine without permission</p>
+    <article class="article">
+        <div class="article-header">
+            <div class="icon">{{ post.icon }}</div>
+            <h1>{{ post.title }}</h1>
+            <div class="article-meta">
+                <span class="article-category">{{ post.category }}</span>
+                <span class="article-date">{{ post.date }}</span>
             </div>
         </div>
-    </div>
+        <div class="article-body">
+            {{ post.content | safe }}
+        </div>
+    </article>
+
+    <div class="divider">&#10024; &#10024; &#10024;</div>
 
     <footer>
         Made with &#128150; by Blossom & Bloom &middot; 2026

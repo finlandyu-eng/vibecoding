@@ -167,6 +167,7 @@
         <ul class="nav-links">
             <li><a href="/">Home</a></li>
             <li><a href="/about">About</a></li>
+            <li><a href="/blog">Blog</a></li>
             <li><a href="/gallery">Gallery</a></li>
             <li><a href="/contact">Contact</a></li>
         </ul>
@@ -198,7 +199,19 @@
     </section>
 
     <section class="cta">
-        <a href="/gallery">Explore the Gallery</a>
+        <a href="/blog">Read the Blog</a>
+    </section>
+
+    <div class="sparkle-divider">&#10024; &#10024; &#10024;</div>
+
+    <section class="cards">
+        {% for post in posts %}
+        <a href="/blog/{{ post.slug }}" class="card" style="text-decoration:none;">
+            <div class="card-icon">{{ post.icon }}</div>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.excerpt }}</p>
+        </a>
+        {% endfor %}
     </section>
 
     <footer>
