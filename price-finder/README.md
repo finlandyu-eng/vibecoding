@@ -2,6 +2,8 @@
 
 Find the cheapest price for any product across multiple stores.
 
+![alt text](image.png)
+
 ## What Is This?
 
 A simple website where you:
