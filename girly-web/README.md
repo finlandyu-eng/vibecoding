@@ -1,8 +1,8 @@
 # Blossom & Bloom
 
 A cute girly website built with Python Flask.
-![alt text](image.png)
-![alt text](image-1.png)
+![alt text]![alt text](image-2.png)
+![alt text]![alt text](image-3.png)
 
 ## How to Start
 
